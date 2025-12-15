@@ -3779,7 +3779,8 @@ const PERK_SEARCH_FOLDERS = [
     "Fallout-RPG/Perks/Settlers",
     "Fallout-RPG/Perks/Wanderers",
     "Fallout-RPG/Perks/Weapons",
-    "Fallout-RPG/Perks/Book Perks"
+    "Fallout-RPG/Perks/Book Perks",
+    "Fallout-RPG/Perks/Traits"
 ];
 const PERK_DESCRIPTION_LIMIT = 999999;
 
