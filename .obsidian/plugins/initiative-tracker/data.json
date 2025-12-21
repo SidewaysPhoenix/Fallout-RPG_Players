@@ -168,7 +168,11 @@
         "currentAC": 1,
         "note": "Austin",
         "path": "Untitled/Players/Austin.md",
+<<<<<<< HEAD
         "id": "ID_2baa1a8a0bb9",
+=======
+        "id": "ID_49082bebf81b",
+>>>>>>> origin/main
         "currentHP": 14,
         "tempHP": 0,
         "status": [],
@@ -190,7 +194,11 @@
         "currentAC": 1,
         "note": "Ian",
         "path": "Commonwealth Wanderers/Players/Ian.md",
+<<<<<<< HEAD
         "id": "ID_a9db9b8989cb",
+=======
+        "id": "ID_38da8899d8ea",
+>>>>>>> origin/main
         "currentHP": 24,
         "tempHP": 0,
         "status": [],
@@ -212,7 +220,11 @@
         "currentAC": 1,
         "note": "James",
         "path": "Untitled/Players/James.md",
+<<<<<<< HEAD
         "id": "ID_88e96848fbe9",
+=======
+        "id": "ID_c91879db5bba",
+>>>>>>> origin/main
         "currentHP": 14,
         "tempHP": 0,
         "status": [],
