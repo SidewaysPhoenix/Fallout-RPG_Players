@@ -4,25 +4,36 @@
     "type": "split",
     "children": [
       {
-        "id": "4509724f8bf84da7",
+        "id": "f50970c2b9921cd3",
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "0d864b354e91cee1",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/plugins/obsidian-5e-statblocks/data.json",
-                "bFile": ".obsidian/plugins/obsidian-5e-statblocks/data.json",
-                "aRef": "HEAD",
-                "bRef": ""
+                "file": "Fallout-RPG/Items/Weapons/Explosives/Pulse Grenade.md",
+                "mode": "preview",
+                "source": false,
+                "backlinks": false
               },
-              "icon": "diff",
-              "title": "Diff: data.json"
+              "icon": "lucide-file",
+              "title": "Pulse Grenade"
+            }
+          },
+          {
+            "id": "f6812271e3576101",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -208,10 +219,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "f6812271e3576101",
   "lastOpenFiles": [
-    "Fallout-RPG/Items/Weapons/Explosives/Molotov Cocktail.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Pulse Grenade.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Powder Charge.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Plastic Explosives.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Plasma Mine.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Plasma Grenade.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Nuka Grenade.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Cryogenic Grenade.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Baseball Grenade.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Frag Grenade MIRV.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Frag Grenade.md",
     "Fallout-RPG/Homepage.md",
+    "Fallout-RPG/Items/Apparel/Power Armor/X-01/X-01 Leg.md",
+    "Fallout-RPG/Items/Weapons/Explosives/Molotov Cocktail.md",
     "Fallout-RPG/Perks/Traits/HEAVY HANDED.md",
     "test.md",
     "Fallout-RPG/Items/Mods/Weapon Mods/Melee Weapons/Sword/Stun Pack (Sword).md",
@@ -225,17 +247,6 @@
     "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Violent.md",
     "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Two-Shot.md",
     "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Troubleshooter's (Weapon).md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Steadfast.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Stalker's.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Staggering.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Sentinel's (Weapon).md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Relentless.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Rapid.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Quickdraw.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Powerful Weapon.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Poisoner's (Weapon).md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Plasma Infused.md",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Penetrating.md",
     "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties",
     "Fallout-RPG/Legendary Item Creation/Legendary Armor Creation/Legendary Armor Properties",
     "Fallout-RPG/Legendary Item Creation/Legendary Weapons",
