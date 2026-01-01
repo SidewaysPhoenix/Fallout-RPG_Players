@@ -4,22 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "4509724f8bf84da7",
+        "id": "f23006d7d7a90e54",
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "2558211340bacb06",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Fallout-RPG/Homepage.md",
-                "mode": "preview",
-                "source": false,
-                "backlinks": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Homepage"
+              "title": "New tab"
             }
           }
         ]
@@ -28,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "cb60aee598e7c09d",
+    "id": "1323d78cbb0df05f",
     "type": "split",
     "children": [
       {
-        "id": "2e793dc6899c1cdf",
+        "id": "250cbee98d2913c2",
         "type": "tabs",
         "children": [
           {
-            "id": "0e8178f0d7e2d4a2",
+            "id": "045803e070bf5ebf",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -49,7 +44,7 @@
             }
           },
           {
-            "id": "c046afa10cdbf1e8",
+            "id": "6aa4a3e3bfdd7bad",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -66,7 +61,7 @@
             }
           },
           {
-            "id": "ae329f4d6f57d864",
+            "id": "24d37f88ded8c547",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -79,33 +74,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 281.5
+    "width": 207.5
   },
   "right": {
-    "id": "10479a0a002a1f04",
+    "id": "3df93be1e720dcac",
     "type": "split",
     "children": [
       {
-        "id": "b7964346fb08ed47",
+        "id": "3a86b7549ebf319a",
         "type": "tabs",
         "children": [
           {
-            "id": "0bb7df146bbde53e",
-            "type": "leaf",
-            "state": {
-              "type": "broken-links-view",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "broken-links-view"
-            }
-          },
-          {
-            "id": "6a1a7a90dd00e46f",
+            "id": "60391a6ec3f9ddfd",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Fallout RPG/Homepage.md",
+                "file": "test.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,25 +100,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Homepage"
+              "title": "Backlinks for test"
             }
           },
           {
-            "id": "da890b5c6a2f47e5",
+            "id": "4da7b5514687490a",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Fallout RPG/Homepage.md",
+                "file": "Fallout-RPG/Character Sheet.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Homepage"
+              "title": "Outgoing links from Character Sheet"
             }
           },
           {
-            "id": "068e69baa866ef57",
+            "id": "fb1b539d916ac40f",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -148,92 +133,22 @@
             }
           },
           {
-            "id": "c30cdfb42112151a",
+            "id": "c66144d4b994b34a",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Fallout RPG/Homepage.md",
+                "file": "Fallout-RPG/Character Sheet.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Homepage"
+              "title": "Outline of Character Sheet"
             }
           },
           {
-            "id": "bcca9b6e76830733",
-            "type": "leaf",
-            "state": {
-              "type": "DICE_ROLLER_VIEW",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "DICE_ROLLER_VIEW"
-            }
-          },
-          {
-            "id": "10f0ca51fe752767",
-            "type": "leaf",
-            "state": {
-              "type": "initiative-tracker-view",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "initiative-tracker-view"
-            }
-          },
-          {
-            "id": "4863844771cc255f",
-            "type": "leaf",
-            "state": {
-              "type": "DICE_ROLLER_VIEW",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "DICE_ROLLER_VIEW"
-            }
-          },
-          {
-            "id": "51a649dc6b2c00c3",
-            "type": "leaf",
-            "state": {
-              "type": "DICE_ROLLER_VIEW",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "DICE_ROLLER_VIEW"
-            }
-          },
-          {
-            "id": "1f214db9666de148",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
-          },
-          {
-            "id": "dd730dc970bbd695",
-            "type": "leaf",
-            "state": {
-              "type": "initiative-tracker-view",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "initiative-tracker-view"
-            }
-          },
-          {
-            "id": "53039e1d602e2e54",
-            "type": "leaf",
-            "state": {
-              "type": "DICE_ROLLER_VIEW",
-              "state": {},
-              "icon": "lucide-ghost",
-              "title": "DICE_ROLLER_VIEW"
-            }
-          },
-          {
-            "id": "10a1895e88f18603",
+            "id": "3c5b6fba49d3fd2a",
             "type": "leaf",
             "state": {
               "type": "initiative-tracker-view",
@@ -243,7 +158,7 @@
             }
           },
           {
-            "id": "5baa8f0af7901e4a",
+            "id": "bae5b0c5b605dca9",
             "type": "leaf",
             "state": {
               "type": "DICE_ROLLER_VIEW",
@@ -251,22 +166,32 @@
               "icon": "dices",
               "title": "Dice Tray"
             }
+          },
+          {
+            "id": "b95dcbb38c59c2ed",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
         ],
-        "currentTab": 9
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 634.5
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "command-palette:Open command palette": false,
+      "bases:Create new base": false,
       "initiative-tracker:Initiative Tracker Encounter Builder": false,
       "obsidian-leaflet-plugin:Open Leaflet Map": false,
       "omnisearch:Omnisearch": false,
@@ -280,54 +205,38 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "045803e070bf5ebf",
   "lastOpenFiles": [
+    "Fallout-RPG/Perks/Traits/Survivor/EDUCATED.md",
+    "Fallout-RPG/Perks/Traits/Survivor/GIFTED.md",
     "Character Sheet_Dynamic_Max_HP.md",
     "Fallout-RPG/Character Sheet.md",
-    "Fallout-RPG/Perks/Traits/Survivor/HEAVY HANDED.md",
-    "Fallout-RPG/Perks/Traits/Survivor/GIFTED.md",
-    "Fallout-RPG/Perks/Traits/Survivor/EDUCATED.md",
+    "Fallout-RPG/Homepage.md",
+    "Fallout-RPG/Perks/Traits/Protect or Destroy/SHOCK HAND.md",
+    "Fallout-RPG/Perks/Traits/Protect or Destroy/CRYOJET.md",
+    "Fallout-RPG/Perks/Traits/Protect or Destroy/CLAWS (PROTECTRON).md",
+    "Fallout-RPG/Perks/Traits/Protect or Destroy",
+    "Fallout-RPG/Perks/Traits/New Californian/TRIGGER DISCIPLINE.md",
+    "Fallout-RPG/Perks/Traits/New Californian/HOME ON THE RANGE.md",
+    "Fallout-RPG/Perks/Traits/New Californian/GRUNT.md",
+    "Fallout-RPG/Perks/Traits/New Californian/GOOD NATURED.md",
+    "Fallout-RPG/Perks/Traits/New Californian/BRAHMIN BARON.md",
+    "Fallout-RPG/Perks/Traits/New Californian",
+    "Fallout-RPG/Perks/Traits/Designed for the Frontline/CLAWS (ASSAULTRON).md",
+    "Fallout-RPG/Perks/Traits/Designed for the Frontline/ASSAULTRON HEAD LASER.md",
+    "Fallout-RPG/Perks/Traits/Designed for the Frontline",
     "Fallout-RPG/Perks/Traits/VAULT KID.md",
     "Fallout-RPG/Perks/Traits/UNITED WE STAND.md",
-    "Fallout-RPG/Perks/Traits/THE CHAIN THAT BREAKS.md",
-    "Fallout-RPG/Perks/Traits/THE CHAIN THAT BINDS.md",
-    "Fallout-RPG/Perks/Traits/STEALTH BOY ADDICT.md",
-    "Fallout-RPG/Perks/Traits/SELF-DESTRUCT.md",
-    "Fallout-RPG/Perks/Traits/ROBOBRAIN ROBOT.md",
-    "Fallout-RPG/Perks/Traits/RAD SPONGE.md",
-    "Fallout-RPG/Perks/Traits/NECROTIC POST-HUMAN.md",
-    "Fallout-RPG/Perks/Traits/MORE THAN HUMAN.md",
-    "Fallout-RPG/Perks/Traits/MISTER HANDY ROBOT.md",
-    "Fallout-RPG/Perks/Traits/MARK 1 SECURITRON.md",
-    "Fallout-RPG/Perks/Traits/FORCED EVOLUTION.md",
     "Fallout-RPG/Perks/Traits/Tribal/TOOLS OF THE OLD WORLD.md",
     "Fallout-RPG/Perks/Traits/Tribal/THE CHOSEN ONE.md",
     "Fallout-RPG/Perks/Traits/Tribal/RITE OF PASSAGE.md",
     "Fallout-RPG/Perks/Traits/Tribal/NOMAD.md",
     "Fallout-RPG/Perks/Traits/Tribal/MOTHER WASTELAND.md",
     "Fallout-RPG/Perks/Traits/Tribal",
+    "Fallout-RPG/Perks/Traits/THE CHAIN THAT BREAKS.md",
+    "Fallout-RPG/Perks/Traits/THE CHAIN THAT BINDS.md",
     "Fallout-RPG/Perks/Traits/Survivor/SMALL HAND.md",
-    "Fallout-RPG/Perks/Traits/Survivor/FAST SHOT.md",
-    "Fallout-RPG/Perks/Traits/Survivor",
-    "Fallout-RPG/Perks/Traits/Protect or Destroy/SHOCK HAND.md",
-    "Fallout-RPG/Perks/Traits/Protect or Destroy",
-    "Fallout-RPG/Perks/Traits/New Californian",
-    "Fallout-RPG/Perks/Traits/Designed for the Frontline",
-    "Fallout-RPG/Legendary Item Creation/Legendary Armor Creation/Legendary Armor Properties",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties",
-    "Fallout-RPG/Legendary Item Creation/Legendary Armor Creation",
-    "Fallout-RPG/Legendary Item Creation/Legendary Weapons",
-    "Fallout-RPG/Legendary Item Creation",
-    "Fallout-RPG/Perks/Perk Images/2D20_Toughness.webp",
-    "Fallout-RPG/Perks/Perk Images/2D20_Tales_of_Junktown_Jerky_Vendor.webp",
-    "Fallout-RPG/Perks/Perk Images/2d20_Terrifying_Presence.webp",
-    "Fallout-RPG/Perks/Perk Images/2D20_Tag.webp",
-    "Fallout-RPG/Perks/Perk Images/2D20_Strong_Back.webp",
-    "Fallout-RPG/Perks/Perk Images/2D20_Steady_Aim.webp",
-    "Fallout-RPG/Perks/Perk Images/2D20_Solar_Powered.webp",
-    "Fallout-RPG/Perks/Perk Images/2d20_Snakeater.webp",
-    "Fallout-RPG/Perks/Perk Images/2d20_Smooth_talker.webp",
-    "Fallout-RPG/Perks/Perk Images/2d20_Slayer_vault_boy.webp",
-    "Taffy (Dog ♀) test.canvas"
+    "Fallout-RPG/Perks/Traits/Survivor/HEAVY HANDED.md",
+    "Fallout-RPG/Perks/Traits/Survivor"
   ]
 }
