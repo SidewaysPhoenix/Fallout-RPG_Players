@@ -4,22 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "3944a34abd7158e2",
+        "id": "4509724f8bf84da7",
         "type": "tabs",
         "children": [
           {
-            "id": "900d0399b6029e1c",
+            "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Fallout-RPG/Character Sheet.md",
+                "file": "Fallout-RPG/Homepage.md",
                 "mode": "preview",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "Character Sheet"
+              "title": "Homepage"
             }
           }
         ]
@@ -280,8 +280,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0e8178f0d7e2d4a2",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "Character Sheet_Dynamic_Max_HP.md",
+    "Fallout-RPG/Character Sheet.md",
     "Fallout-RPG/Perks/Traits/Survivor/HEAVY HANDED.md",
     "Fallout-RPG/Perks/Traits/Survivor/GIFTED.md",
     "Fallout-RPG/Perks/Traits/Survivor/EDUCATED.md",
@@ -308,8 +310,6 @@
     "Fallout-RPG/Perks/Traits/Survivor/FAST SHOT.md",
     "Fallout-RPG/Perks/Traits/Survivor",
     "Fallout-RPG/Perks/Traits/Protect or Destroy/SHOCK HAND.md",
-    "Fallout-RPG/Perks/Traits/Protect or Destroy/CRYOJET.md",
-    "Fallout-RPG/Perks/Traits/Protect or Destroy/CLAWS (PROTECTRON).md",
     "Fallout-RPG/Perks/Traits/Protect or Destroy",
     "Fallout-RPG/Perks/Traits/New Californian",
     "Fallout-RPG/Perks/Traits/Designed for the Frontline",
