@@ -11,15 +11,14 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "split-diff-view",
               "state": {
-                "file": "Fallout-RPG/Homepage.md",
-                "mode": "preview",
-                "source": false,
-                "backlinks": false
+                "aFile": ".obsidian/workspace.json",
+                "bFile": ".obsidian/workspace.json",
+                "aRef": ""
               },
-              "icon": "lucide-file",
-              "title": "Homepage"
+              "icon": "diff",
+              "title": "Diff: workspace.json"
             }
           }
         ]
@@ -282,6 +281,7 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "Fallout-RPG/Homepage.md",
     "Character Sheet_Dynamic_Max_HP.md",
     "Fallout-RPG/Character Sheet.md",
     "Fallout-RPG/Perks/Traits/Survivor/HEAVY HANDED.md",
@@ -309,7 +309,6 @@
     "Fallout-RPG/Perks/Traits/Survivor/SMALL HAND.md",
     "Fallout-RPG/Perks/Traits/Survivor/FAST SHOT.md",
     "Fallout-RPG/Perks/Traits/Survivor",
-    "Fallout-RPG/Perks/Traits/Protect or Destroy/SHOCK HAND.md",
     "Fallout-RPG/Perks/Traits/Protect or Destroy",
     "Fallout-RPG/Perks/Traits/New Californian",
     "Fallout-RPG/Perks/Traits/Designed for the Frontline",
