@@ -11545,15 +11545,29 @@
           ]
         },
         {
-          "type": "text",
-          "id": "fa99ea8b0b79",
-          "properties": [
-            "effects"
-          ],
-          "text": null,
-          "fallback": "",
-          "conditioned": true,
-          "heading": "Effects"
+          "type": "inline",
+          "id": "cb195b28490b",
+          "properties": [],
+          "nested": [
+            {
+              "type": "group",
+              "id": "587b5879880b",
+              "properties": [],
+              "nested": [
+                {
+                  "type": "traits",
+                  "id": "7899e82b4b5b",
+                  "properties": [
+                    "effects"
+                  ],
+                  "fallback": "-",
+                  "heading": "Effects",
+                  "conditioned": true,
+                  "doNotAddClass": true
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "subheading",
@@ -11666,12 +11680,12 @@
         "subheadingFontColor": "#ffc200",
         "headingFont": "\"Noto Sans\", \"Myriad Pro\", Calibri, Helvetica, Arial, sans-serif",
         "headingFontWeight": "fontWeight",
-        "propertyFontSize": "18px",
         "propertyNameFontVariant": "small-caps",
         "sectionHeadingFontWeight": "600",
         "sectionHeadingBorderSize": "2px",
         "subheadingFontStyle": "normal",
-        "boxShadowColor": "#ffffff"
+        "boxShadowColor": "#ffffff",
+        "traitsFontColor": "barColor"
       }
     },
     {
