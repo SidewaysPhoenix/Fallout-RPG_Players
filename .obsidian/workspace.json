@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "4509724f8bf84da7",
+        "id": "6f1e6b93ced63f90",
         "type": "tabs",
         "children": [
           {
-            "id": "e7a7b303c61786dc",
+            "id": "11a61c909ee419a6",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -79,7 +79,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 281.5
+    "width": 281.5,
+    "collapsed": true
   },
   "right": {
     "id": "10479a0a002a1f04",
@@ -280,11 +281,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0e8178f0d7e2d4a2",
+  "active": "11a61c909ee419a6",
   "lastOpenFiles": [
-    "Fallout-RPG/Items/Mods/Weapon Mods/Automatron Melee Mods/Shock Mod.md",
-    "Character Sheet_Testing.md",
     "Fallout-RPG/Homepage.md",
+    "Character Sheet_Testing.md",
+    "Fallout-RPG/Items/Mods/Weapon Mods/Automatron Melee Mods/Shock Mod.md",
     "conflict-files-obsidian-git.md",
     "Character Sheet_Dynamic_Max_HP.md",
     "Fallout-RPG/Character Sheet.md",
