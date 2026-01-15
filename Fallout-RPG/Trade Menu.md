@@ -33,6 +33,40 @@ const TRADE_CATEGORIES = [
   { key: "AMMO",       title: "Ammo" },
 ];
 
+// Prevent Obsidian from treating clicks as "editor clicks" (stops Source-mode flips)
+// Prevent Obsidian from treating interactions as "editor clicks" (stops Source-mode flips)
+// IMPORTANT: do NOT preventDefault for form controls, or typing/focus can break.
+function swallowEditorPointer(e) {
+  // Don't break right-click context menu
+  if (e.button === 2) return;
+
+  const t = e.target;
+
+  const isFormControl =
+    t instanceof HTMLInputElement ||
+    t instanceof HTMLTextAreaElement ||
+    t instanceof HTMLSelectElement ||
+    (t && t.isContentEditable);
+
+  // For inputs/textareas/etc: allow default (focus/typing), but stop Obsidian's delegated handlers.
+  if (isFormControl) {
+    e.stopPropagation();
+    return;
+  }
+
+  // For everything else: stop + prevent default to avoid editor mode toggles.
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+// Convenience: apply to an element
+function guardObsidianClick(el) {
+  if (!el || !el.addEventListener) return;
+  el.addEventListener("pointerdown", swallowEditorPointer, true);
+}
+
+
+
 function categoryKeyFromPath(path) {
   const p = String(path || "");
   if (p.startsWith("Fallout-RPG/Items/Weapons")) return "WEAPONS";
@@ -187,6 +221,7 @@ function createSearchBar({ fetchItems, onSelect }) {
     input.style.color = "#1AFF80";
     input.style.borderRadius = "1px";
     input.style.caretColor = '#1AFF80';
+    guardObsidianClick(input);
     wrapper.appendChild(input);
 
     const results = document.createElement('div');
@@ -227,16 +262,16 @@ function createSearchBar({ fetchItems, onSelect }) {
             div.style.borderBottom = (i < matches.length - 1) ? "1px solid #1AFF80" : "";
             div.onmouseover = () => div.style.background = "#112618";
             div.onmouseout = () => div.style.background = "inherit";
-            div.addEventListener('mousedown', (e) => {
-			  e.preventDefault(); // stops blur until after we add
+            div.addEventListener("pointerdown", (e) => {
+			  e.preventDefault();
+			  e.stopPropagation();
+			  // no stopImmediatePropagation
 			  if (item && typeof item === "object" && (item.name || item.link)) {
 			    onSelect({ ...item });
 			  }
 			  input.value = "";
 			  results.style.display = "none";
-			});
-
-
+			}, true);
             results.appendChild(div);
         });
         results.style.display = matches.length ? "block" : "none";
@@ -658,7 +693,14 @@ function saveVendorState(vendorId, st) {
 function loadSession(vendorId) {
   const raw = localStorage.getItem(keySession(vendorId));
   const s = safeJsonParse(raw || "null", null);
-  if (s && typeof s === "object" && s.vendorId === vendorId) return s;
+
+  if (s && typeof s === "object" && s.vendorId === vendorId) {
+    // --- FIX: refresh tradeCaps from the character sheet on page load ---
+    if (!s.player || typeof s.player !== "object") s.player = {};
+    s.player.tradeCaps = loadPlayerCaps();   // always sync to sheet caps on load
+    saveSession(vendorId, s);                // persist the refreshed value
+    return s;
+  }
 
   return {
     version: 1,
@@ -812,9 +854,11 @@ function computeTotals({ itemsById, pending, pricing }) {
 
 /* ----------------------------- Commit Logic -------------------------------- */
 
-function upsertGearRow(gearRows, name, qtyDelta, costInt) {
+function upsertGearRow(gearRows, name, qtyDelta, costInt, categoryKey) {
   const key = normalizeNameKey(name);
   let row = gearRows.find(r => normalizeNameKey(r?.name) === key);
+
+  const cat = (categoryKey && String(categoryKey).trim()) ? String(categoryKey).trim() : "MISC";
 
   if (!row) {
     if (qtyDelta <= 0) return; // nothing to remove
@@ -822,7 +866,8 @@ function upsertGearRow(gearRows, name, qtyDelta, costInt) {
       selected: false,
       name,
       qty: String(qtyDelta),
-      cost: String(Math.max(0, parseCapsInt(costInt, 0)))
+      cost: String(Math.max(0, parseCapsInt(costInt, 0))),
+      category: cat
     });
     return;
   }
@@ -840,7 +885,11 @@ function upsertGearRow(gearRows, name, qtyDelta, costInt) {
 
   // keep cost stable, but if blank, fill it
   if (String(row.cost ?? "").trim() === "") row.cost = String(Math.max(0, parseCapsInt(costInt, 0)));
+
+  // fill missing category (do not overwrite an existing one)
+  if (!String(row.category ?? "").trim() && cat) row.category = cat;
 }
+
 
 function upsertVendorInv(vendorInv, name, qtyDelta, baseCostInt, categoryKey) {
   const key = normalizeNameKey(name);
@@ -976,7 +1025,7 @@ function applyConfirm({ vendorId, session, vendorState }) {
     const it = itemsById.get(itemId);
     if (!it) continue;
 
-    upsertGearRow(gearRows, it.name, +qty, it.baseCost);
+    upsertGearRow(gearRows, it.name, +qty, it.baseCost, it.category);
     upsertVendorInv(vendorState.inventory, it.name, -qty, it.baseCost, it.category);
   }
 
@@ -998,7 +1047,7 @@ function applyConfirm({ vendorId, session, vendorState }) {
 
     // only subtract remainder from character gear
     if (remaining > 0) {
-      upsertGearRow(gearRows, it.name, -remaining, it.baseCost);
+      upsertGearRow(gearRows, it.name, -remaining, it.baseCost, it.category);
     }
 
     // vendor receives the full sold amount (qty)
@@ -1369,6 +1418,11 @@ function buildTradeUI(root) {
     right.textContent = "▶";
     right.style.cssText = `cursor:pointer;`;
 
+	guardObsidianClick(wrap);
+	guardObsidianClick(left);
+	guardObsidianClick(title);
+	guardObsidianClick(right);
+
     const getIdx = () =>
       side === "player"
         ? (session.ui?.playerCatIndex ?? 0)
@@ -1469,11 +1523,14 @@ function buildTradeUI(root) {
     const valInput = document.createElement("input");
     valInput.type = "number";
     valInput.style.cssText = `display:none; width:80px; text-align:center; background:#021509ad; color:#1AFF80; font-size:16px; border-radius:8px; border:1px solid rgba(0,0,0,0.25); padding:4px 6px;`;
-
+	
     const setDisplay = (v) => {
       valSpan.textContent = String(Math.max(0, parseCapsInt(v, 0)));
     };
 
+	guardObsidianClick(valSpan);
+	guardObsidianClick(valInput);
+	
     const enterEdit = () => {
       valInput.value = String(getValue());
       valSpan.style.display = "none";
@@ -1531,7 +1588,11 @@ function buildTradeUI(root) {
       const pooledInput = document.createElement("input");
       pooledInput.type = "number";
       pooledInput.style.cssText = `display:none; width:90px; text-align:center; background:#fde4c9; color:black; border-radius:8px; border:1px solid rgba(0,0,0,0.25); padding:4px 6px;`;
-
+	  
+	  guardObsidianClick(cb);
+	  guardObsidianClick(pooledVal);
+	  guardObsidianClick(pooledInput);
+	  
       const syncPool = () => {
         pooledVal.textContent = String(Math.max(0, parseCapsInt(getPool().value, 0)));
         pooledVal.style.opacity = getPool().enabled ? "1" : "0.45";
@@ -1598,7 +1659,9 @@ function buildTradeUI(root) {
     input.min = "0";
     input.value = String(getValue());
     input.style.cssText = `width:90px; text-align:center; background:#021509ad; color:c0ffff; border-radius:2px; border-top:1px solid #1AFF80; border-right:1px solid #1AFF80; border-bottome:0px solid #1AFF80; border-left:0px solid #1AFF80; padding:4px 6px;`;
-
+	
+	guardObsidianClick(input);
+	
     input.addEventListener("input", () => {
       const v = Number(input.value);
       if (!Number.isFinite(v) || v < 0) return;
@@ -2211,7 +2274,7 @@ function buildTradeUI(root) {
       });
 
       rowEl.title = "Click to move (Shift+Click for quantity)\nAtl+Click: Remove stack\nHold Ctrl: Move mouse to preview\nHold Ctrl+Click: Open Note";
-
+	  guardObsidianClick(rowEl);
       rowEl.addEventListener("click", async (e) => {
         const pending = getPendingQty(session);
         const pb = pending.buy[r.realId] ?? 0;
@@ -2322,11 +2385,27 @@ function buildTradeUI(root) {
     const vendorItems = vendorStateToItems(vendorState);
     const pooled = pooledItemsToItems(session.player.pooledItems);
 
-    // Master item map for consistent cost references
-    const itemsById = new Map();
-    for (const it of [...playerItems, ...vendorItems, ...pooled]) {
-      if (!itemsById.has(it.id)) itemsById.set(it.id, it);
-    }
+    // Master item map for consistent cost references (merge category/baseCost if later sources have them)
+	const itemsById = new Map();
+	for (const it of [...playerItems, ...vendorItems, ...pooled]) {
+	  const cur = itemsById.get(it.id);
+	
+	  if (!cur) {
+	    itemsById.set(it.id, it);
+	    continue;
+	  }
+	
+	  // Fill missing category if a later source provides it
+	  const curCat = String(cur.category || "").trim();
+	  const newCat = String(it.category || "").trim();
+	  if (!curCat && newCat) cur.category = newCat;
+	
+	  // Optional: fill missing/invalid baseCost too (helps if one source lacks cost)
+	  if (!Number.isFinite(parseCapsInt(cur.baseCost, NaN)) && Number.isFinite(parseCapsInt(it.baseCost, NaN))) {
+	    cur.baseCost = it.baseCost;
+	  }
+	}
+
 
     // Build base qty maps
     const basePlayerMap = new Map();
