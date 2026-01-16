@@ -577,6 +577,7 @@ function createEditableTable({ columns, storageKey, fetchItems, cellOverrides = 
 		    if (!parts.length) {
 			  const none = document.createElement("span");
 			  none.textContent = "None";
+			  none.style.color = "white";
 			  none.style.opacity = "0.6";
 			  none.style.marginLeft = "6px";
 			  effectsWrap.appendChild(none);
@@ -640,6 +641,7 @@ function createEditableTable({ columns, storageKey, fetchItems, cellOverrides = 
 		    if (!addons.length) {
 		      const empty = document.createElement("span");
 		      empty.textContent = "None";
+		      empty.style.color = "white";
 		      empty.style.opacity = "0.6";
 		      empty.style.marginLeft = "6px";
 		      modsWrap.appendChild(empty);
@@ -656,6 +658,7 @@ function createEditableTable({ columns, storageKey, fetchItems, cellOverrides = 
 		        const rm = document.createElement("span");
 		        rm.textContent = " 🗑️";
 		        rm.style.cursor = "pointer";
+		        rm.style.textShadow = "2px 2px 5px black";
 		        rm.title = "Remove mod";
 		        rm.onclick = (e) => {
 				  e.stopPropagation();
@@ -680,8 +683,9 @@ function createEditableTable({ columns, storageKey, fetchItems, cellOverrides = 
 			
 		    const addBtn = document.createElement("span");
 		    addBtn.textContent = "+";
+
 		    addBtn.title = "Add mod";
-		    addBtn.style = "color:#ffc200;font-weight:bold;border:none;border-radius:6px;padding:4px 12px;cursor:pointer;";
+		    addBtn.style = "color:#ffc200; font-weight:bold; border:none; border-radius:6px; padding:4px 12px; cursor:pointer; text-shadow:2px 2px 5px black;";
 		    addBtn.onclick = () => {
 		      openWeaponModPicker({
 		        rowData,
@@ -777,6 +781,7 @@ function createEditableCell({ rowData, col, onChange }) {
       decreaseIcon.style.padding = "2px 6px";
       decreaseIcon.style.userSelect = "none";
       decreaseIcon.style.color = "cyan";
+      decreaseIcon.style.textShadow = "2px 2px 6px black";
 
       // Plus icon (unstyled)
       const increaseIcon = document.createElement("span");
@@ -786,6 +791,7 @@ function createEditableCell({ rowData, col, onChange }) {
       increaseIcon.style.padding = "2px 6px";
       increaseIcon.style.userSelect = "none";
 	  increaseIcon.style.color = "tomato";
+	  increaseIcon.style.textShadow = "2px 2px 6px black";
 	
       // Qty text (unstyled, editable on click)
       const qtyText = document.createElement("span");
@@ -796,6 +802,8 @@ function createEditableCell({ rowData, col, onChange }) {
       qtyText.style.fontWeight = "bold";
       qtyText.style.color = "#efdd6f";
       qtyText.title = "Click to edit";
+      qtyText.addEventListener("mouseenter", () => (qtyText.style.textDecoration = "underline"));
+	  qtyText.addEventListener("mouseleave", () => (qtyText.style.textDecoration = "none"))
       
       guardObsidianClick(decreaseIcon);
 	  guardObsidianClick(increaseIcon);
@@ -870,6 +878,7 @@ function createEditableCell({ rowData, col, onChange }) {
     if (col.type === "remove") {
 	    const btn = document.createElement('span');
 	    btn.textContent = "🗑️";
+	    btn.style.textShadow = "2px 2px 5px black"
 	    btn.style.cursor = "pointer";
 	
 	    guardObsidianClick(btn);
@@ -909,6 +918,8 @@ function createEditableCell({ rowData, col, onChange }) {
     }
     span.style.cursor = "pointer";
     span.style.display = "inline-block";
+    span.addEventListener("mouseenter", () => (span.style.textDecoration = "underline"));
+  span.addEventListener("mouseleave", () => (span.style.textDecoration = "none"))
     guardObsidianClick(td);
 	guardObsidianClick(span);
     td.onclick = (event) => {
@@ -1285,6 +1296,7 @@ function createPlusMinusDisplay({ value = 0, min = 0, max = 999, onChange }) {
     minus.style.padding = "2px 6px";
     minus.style.userSelect = "none";
     minus.style.color = "cyan";
+    minus.style.textShadow = "2px 2px 4px black";
     minus.addEventListener("pointerdown", swallowEditorPointer, true);
 
     // Plus
@@ -1295,6 +1307,7 @@ function createPlusMinusDisplay({ value = 0, min = 0, max = 999, onChange }) {
     plus.style.padding = "2px 6px";
     plus.style.userSelect = "none";
 	plus.style.color = "tomato";
+	plus.style.textShadow = "2px 2px 4px black";
 	plus.addEventListener("pointerdown", swallowEditorPointer, true);
 
     // Value display (click to edit)
@@ -1308,6 +1321,8 @@ function createPlusMinusDisplay({ value = 0, min = 0, max = 999, onChange }) {
     num.style.color = "#efdd6f";
     num.title = "Click to edit";
     num.addEventListener("pointerdown", swallowEditorPointer, true);
+    num.addEventListener("mouseenter", () => (num.style.textDecoration = "underline"));
+    num.addEventListener("mouseleave", () => (num.style.textDecoration = "none"))
     
     onChange: (val) => {
 	    if (inputs.LuckPoints) {
@@ -2582,15 +2597,17 @@ function renderCapsContainer() {
 
     const decreaseIcon = document.createElement('span');
     decreaseIcon.textContent = "−";
-    decreaseIcon.style = "cursor:pointer;color:cyan;font-size:15px;margin-left:15px";
+    decreaseIcon.style = "cursor:pointer;color:cyan;font-size:15px;margin-left:15px; text-shadow:2px 2px 5px black";
 
     const increaseIcon = document.createElement('span');
     increaseIcon.textContent = "+";
-    increaseIcon.style = "cursor:pointer;color:tomato;font-size:15px;";
+    increaseIcon.style = "cursor:pointer;color:tomato;font-size:15px; text-shadow:2px 2px 5px black";
 
     const CapsDisplay = document.createElement('span');
     CapsDisplay.textContent = storedValue;
     CapsDisplay.style = "text-align:center;color:#efdd6f;cursor:pointer;fontWeight:bold;font-size:15px;";
+    CapsDisplay.addEventListener("mouseenter", () => (CapsDisplay.style.textDecoration = "underline"));
+    CapsDisplay.addEventListener("mouseleave", () => (CapsDisplay.style.textDecoration = "none"))
 
     const CapsInput = document.createElement('input');
     CapsInput.type = 'number';
@@ -4035,10 +4052,12 @@ function renderArmorCard(section) {
     statGrid.style.border = '2px solid #223657'
     statGrid.style.justifyContent = "center";
     
-    const resetBtn = document.createElement("button");
+    const resetBtn = document.createElement("span");
 	resetBtn.textContent = "Clear Card";
 	resetBtn.title = "Reset this card to blank";
+	resetBtn.style.alignSelf = "center"
 	resetBtn.style.textWrap = "auto";
+	resetBtn.style.textShadow = "1px 1px 1px black";
 	// Remove all default button styles:
 	resetBtn.style.background = "none";
 	resetBtn.style.border = "none";
@@ -4162,6 +4181,7 @@ function renderArmorCard(section) {
 	searchBtn.style.fontSize = "large";
 	searchBtn.style.color = "#ffc200";
 	searchBtn.style.padding = "0 6px";
+	searchBtn.style.textShadow = "2px 2px 3px black"
 	
     let apparelInput = document.createElement("input");
     apparelInput.type = "text";
@@ -4263,10 +4283,11 @@ function renderArmorCard(section) {
 	  const addBtn = document.createElement("button");
 	  addBtn.textContent = "+";
 	  addBtn.title = "Add addon";
+	  addBtn.style.textShadow = "1px 1px 2px black";
 	  addBtn.style.background = '#325886';
 	  addBtn.style.color = '#ffc200';
 	  addBtn.style.fontWeight = 'bold';
-	  addBtn.style.border = '1px solid gray';
+	  addBtn.style.border = '1px solid #0000007a';
 	  addBtn.style.borderRadius = '6px';
 	  addBtn.style.padding = '6px 10px';
 	  addBtn.style.cursor = 'pointer';
@@ -4292,6 +4313,7 @@ function renderArmorCard(section) {
 	
 	      const rm = document.createElement("span");
 	      rm.textContent = "🗑️";
+	      rm.style.textShadow = "2px 2px 5px black"
 	      rm.style.cursor = "pointer";
 	      rm.title = "Remove addon";
 	      rm.onclick = (e) => {
@@ -4728,10 +4750,12 @@ function renderPowerArmorCard(section) {
     statGrid.style.justifyContent = "center";
     
     // ---- RESET BUTTON ----
-	const resetBtn = document.createElement("button");
+	const resetBtn = document.createElement("span");
 	resetBtn.textContent = "Clear Card";
 	resetBtn.title = "Reset this card to blank";
+	resetBtn.style.alignSelf = "center"
 	resetBtn.style.textWrap = "auto";
+	resetBtn.style.textShadow = "1px 1px 1px black";
 	// Remove all default button styles:
 	resetBtn.style.background = "none";
 	resetBtn.style.border = "none";
@@ -4874,6 +4898,7 @@ function renderPowerArmorCard(section) {
 	searchBtn.style.fontSize = "large";
 	searchBtn.style.color = "#ffc200";
 	searchBtn.style.padding = "0 6px";
+	searchBtn.style.textShadow = "2px 2px 3px black"
 
     let apparelInput = document.createElement("input");
     apparelInput.type = "text";
@@ -4982,10 +5007,11 @@ function renderPowerArmorCard(section) {
 	  const addBtn = document.createElement("button");
 	  addBtn.textContent = "+";
 	  addBtn.title = "Add addon";
+	  addBtn.style.textShadow = "1px 1px 2px black";
 	  addBtn.style.background = '#325886';
 	  addBtn.style.color = '#ffc200';
 	  addBtn.style.fontWeight = 'bold';
-	  addBtn.style.border = '1px solid gray';
+	  addBtn.style.border = '1px solid #0000007a';
 	  addBtn.style.borderRadius = '6px';
 	  addBtn.style.padding = '6px 10px';
 	  addBtn.style.cursor = 'pointer';
@@ -5017,6 +5043,7 @@ function renderPowerArmorCard(section) {
 	
 	      const rm = document.createElement("span");
 	      rm.textContent = "🗑️";
+	      rm.style.textShadow = "2px 2px 5px black"
 	      rm.style.cursor = "pointer";
 	      rm.title = "Remove addon";
 	      rm.onclick = (e) => {
