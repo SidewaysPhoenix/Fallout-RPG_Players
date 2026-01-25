@@ -5614,8 +5614,8 @@ function refreshSheet() {
     updateWeaponTableDOM(); // <-- Re-render weapon table
 
     // --- 4. Render Ammo table (no extra listeners needed if all logic inside table function)
-    //sheetcontainer.appendChild(createSectionHeader("Ammo"));
-    //sheetcontainer.appendChild(renderAmmoTableSection());
+    sheetcontainer.appendChild(createSectionHeader("Ammo"));
+    sheetcontainer.appendChild(renderAmmoTableSection());
 
     // --- 5. Armor section (if any listeners are required, call a setup function here)
     sheetcontainer.appendChild(createSectionHeader("Armor"));
