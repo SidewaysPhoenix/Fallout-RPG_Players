@@ -9,9 +9,10 @@
     "editbuttonstyling",
     "Scrollbar",
     "tree design",
-    "Change color of table backgrounds",
     "fantasystatblock images",
-    "trade_menu"
+    "trade_menu",
+    "character-sheet",
+    "vehicle-sheet"
   ],
   "baseFontSize": 12
 }
