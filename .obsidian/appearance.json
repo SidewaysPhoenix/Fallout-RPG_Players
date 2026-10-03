@@ -1,15 +1,16 @@
 {
   "cssTheme": "ITS Theme",
+  "theme": "obsidian",
   "enabledCssSnippets": [
     "Change color of internal links",
-    "character-sheet",
-    "editbuttonstyling",
-    "fantasystatblock images",
+    "Statblock adjustments",
     "hide notifications",
+    "editbuttonstyling",
     "Scrollbar",
-    "trade_menu",
     "tree design",
+    "fantasystatblock images",
+    "trade_menu",
+    "character-sheet",
     "vehicle-sheet"
-  ],
-  "theme": "obsidian"
+  ]
 }
