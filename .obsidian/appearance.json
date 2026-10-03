@@ -3,15 +3,16 @@
   "theme": "obsidian",
   "accentColor": "#efdd6f",
   "enabledCssSnippets": [
-    "Change color of internal links",
     "Statblock adjustments",
     "hide notifications",
-    "editbuttonstyling",
     "Scrollbar",
     "tree design",
-    "Change color of table backgrounds",
+    "trade_menu",
+    "vehicle-sheet",
+    "editbuttonstyling",
     "fantasystatblock images",
-    "trade_menu"
+    "character-sheet",
+    "Change color of internal links"
   ],
   "baseFontSize": 12
 }
