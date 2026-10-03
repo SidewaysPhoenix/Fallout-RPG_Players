@@ -1,7 +1,7 @@
 ---
 Fuel Type: Fusion Core
 Max Fuel: 14
-Current Fuel: 10
+Current Fuel: 9
 Vehicle_HP_Max: 40
 Vehicle_HP_Current: 40
 Weapon1: 105mm Cannon
