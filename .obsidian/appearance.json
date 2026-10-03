@@ -1,17 +1,15 @@
 {
   "cssTheme": "ITS Theme",
-  "theme": "obsidian",
-  "accentColor": "#efdd6f",
   "enabledCssSnippets": [
     "Change color of internal links",
-    "Statblock adjustments",
-    "hide notifications",
+    "character-sheet",
     "editbuttonstyling",
-    "Scrollbar",
-    "tree design",
-    "Change color of table backgrounds",
     "fantasystatblock images",
-    "trade_menu"
+    "hide notifications",
+    "Scrollbar",
+    "trade_menu",
+    "tree design",
+    "vehicle-sheet"
   ],
-  "baseFontSize": 12
+  "theme": "obsidian"
 }
