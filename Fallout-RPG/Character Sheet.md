@@ -1900,8 +1900,127 @@ const ACTIVE_EFFECT_TARGET_GROUPS = {
   "Skills": Object.keys(skillToSpecial),
   "Resources": ["Luck Points"],
   "Derived Stats": ["Maximum HP", "Initiative", "Defense", "Carry Weight", "Melee Damage"],
-  "Damage Resistance": ["Physical DR", "Energy DR", "Radiation DR", "Poison DR"]
+  "Damage Resistance": ["Physical DR", "Energy DR", "Radiation DR", "Poison DR"],
+  // Dynamic: populated through the searchable perk picker in the Active Effect editor.
+  "Perks": []
 };
+
+const ACTIVE_EFFECT_PERK_OPERATIONS = [
+  { value: "perk_add", label: "Add Perk" },
+  { value: "perk_remove", label: "Remove Perk" },
+  { value: "perk_set", label: "Set Rank" }
+];
+
+function normalizePerkName(value) {
+  return String(value ?? "")
+    .replace(/^\[\[/, "")
+    .replace(/\]\]$/, "")
+    .replace(/^["']|["']$/g, "")
+    .trim();
+}
+
+function loadStoredPerks() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem("fallout_perk_table") || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function getStoredPerkRow(perkName) {
+  const wanted = normalizePerkName(perkName).toLowerCase();
+  return loadStoredPerks().find(row =>
+    normalizePerkName(row?.name).toLowerCase() === wanted
+  ) || null;
+}
+
+function getPermanentPerkRank(perkName) {
+  const row = getStoredPerkRow(perkName);
+  if (!row) return 0;
+  const rank = Number(row.qty);
+  return Number.isFinite(rank) ? Math.max(0, Math.round(rank)) : 0;
+}
+
+function getPerkMaxRank(perkName, fallback = 1) {
+  const row = getStoredPerkRow(perkName);
+  const storedMax = Number(row?.maxRank);
+  if (Number.isFinite(storedMax) && storedMax >= 1) return Math.round(storedMax);
+
+  const wanted = normalizePerkName(perkName).toLowerCase();
+  if (Array.isArray(cachedPerkData)) {
+    const def = cachedPerkData.find(item =>
+      normalizePerkName(item?.name).toLowerCase() === wanted
+    );
+    const maxRank = Number(def?.maxRank);
+    if (Number.isFinite(maxRank) && maxRank >= 1) return Math.round(maxRank);
+  }
+
+  const safeFallback = Number(fallback);
+  return Number.isFinite(safeFallback) && safeFallback >= 1
+    ? Math.round(safeFallback)
+    : 1;
+}
+
+function getActivePerkModifiers(perkName) {
+  const wanted = normalizePerkName(perkName).toLowerCase();
+  const out = [];
+
+  loadActiveEffects().forEach(effect => {
+    if (!effect || effect.active === false) return;
+
+    (Array.isArray(effect.modifiers) ? effect.modifiers : []).forEach(modifier => {
+      if (modifier?.group !== "Perks") return;
+      if (normalizePerkName(modifier?.target).toLowerCase() !== wanted) return;
+
+      out.push({
+        effectId: effect.id,
+        effectName: String(effect.name || "Unnamed Effect"),
+        operation: String(modifier.operation || "perk_add"),
+        value: Number(modifier.value) || 0,
+        maxRank: Number(modifier.maxRank) || 1
+      });
+    });
+  });
+
+  return out;
+}
+
+function getEffectivePerkRank(perkName, permanentRank = null, maxRank = null) {
+  const baseRank = permanentRank === null
+    ? getPermanentPerkRank(perkName)
+    : Math.max(0, Math.round(Number(permanentRank) || 0));
+
+  const modifiers = getActivePerkModifiers(perkName);
+  const knownMax = Math.max(
+    1,
+    Number(maxRank) || 0,
+    getPerkMaxRank(perkName, 1),
+    ...modifiers.map(mod => Number(mod.maxRank) || 1)
+  );
+
+  let rank = baseRank;
+
+  // Set rank first, then grants, then removal. Remove intentionally wins.
+  modifiers.forEach(mod => {
+    if (mod.operation === "perk_set") {
+      rank = Math.max(1, Math.min(knownMax, Math.round(Number(mod.value) || 1)));
+    }
+  });
+
+  modifiers.forEach(mod => {
+    if (mod.operation === "perk_add" && rank <= 0) rank = 1;
+  });
+
+  if (modifiers.some(mod => mod.operation === "perk_remove")) rank = 0;
+
+  return {
+    base: baseRank,
+    effective: Math.max(0, Math.min(knownMax, rank)),
+    maxRank: knownMax,
+    modifiers
+  };
+}
 
 const ACTIVE_EFFECT_OPERATIONS = [
   { value: "add", label: "Add" },
@@ -2434,6 +2553,14 @@ function activeEffectOperationLabel(operation) {
 
 function activeEffectModifierSummary(mod) {
   const value = formatEffectNumber(mod.value);
+
+  if (mod.group === "Perks") {
+    const perkName = normalizePerkName(mod.target) || "Perk";
+    if (mod.operation === "perk_add") return `Add ${perkName}`;
+    if (mod.operation === "perk_remove") return `Remove ${perkName}`;
+    if (mod.operation === "perk_set") return `${perkName} = Rank ${Math.max(1, Number(mod.value) || 1)}`;
+  }
+
   if (mod.operation === "add") return `${mod.target} +${value}`;
   if (mod.operation === "subtract") return `${mod.target} -${value}`;
   if (mod.operation === "multiply") return `${mod.target} ×${value}`;
@@ -2554,14 +2681,146 @@ function showActiveEffectEditor(existingEffect, onSave) {
         groupSelect.appendChild(option);
       });
 
-      if (!ACTIVE_EFFECT_TARGET_GROUPS[modifier.group]) modifier.group = "SPECIAL";
+      if (!ACTIVE_EFFECT_TARGET_GROUPS.hasOwnProperty(modifier.group)) {
+        modifier.group = "SPECIAL";
+      }
       groupSelect.value = modifier.group;
 
-      const targetSelect = document.createElement("select");
+      const targetHost = document.createElement("div");
+      targetHost.style.cssText = "min-width:0;";
 
-      function populateTargets() {
-        const targets = ACTIVE_EFFECT_TARGET_GROUPS[groupSelect.value] || [];
-        targetSelect.innerHTML = "";
+      const operationSelect = document.createElement("select");
+      const valueHost = document.createElement("div");
+      valueHost.style.cssText = "min-width:72px;";
+
+      function populateOperations() {
+        operationSelect.innerHTML = "";
+        const operations = modifier.group === "Perks"
+          ? ACTIVE_EFFECT_PERK_OPERATIONS
+          : ACTIVE_EFFECT_OPERATIONS;
+
+        operations.forEach(op => {
+          const option = document.createElement("option");
+          option.value = op.value;
+          option.textContent = op.label;
+          operationSelect.appendChild(option);
+        });
+
+        const valid = operations.some(op => op.value === modifier.operation);
+        if (!valid) {
+          modifier.operation = modifier.group === "Perks" ? "perk_add" : "add";
+        }
+        operationSelect.value = modifier.operation;
+      }
+
+      function renderValueControl() {
+        valueHost.innerHTML = "";
+
+        if (modifier.group === "Perks") {
+          if (modifier.operation !== "perk_set") {
+            const placeholder = document.createElement("span");
+            placeholder.textContent = "—";
+            placeholder.style.cssText = "display:block;text-align:center;opacity:.55;";
+            valueHost.appendChild(placeholder);
+            return;
+          }
+
+          const maxRank = Math.max(1, Number(modifier.maxRank) || getPerkMaxRank(modifier.target, 1));
+          modifier.maxRank = maxRank;
+
+          const rankSelect = document.createElement("select");
+          for (let rank = 1; rank <= maxRank; rank++) {
+            const option = document.createElement("option");
+            option.value = String(rank);
+            option.textContent = `Rank ${rank}`;
+            rankSelect.appendChild(option);
+          }
+
+          const safeRank = Math.max(1, Math.min(maxRank, Number(modifier.value) || 1));
+          modifier.value = safeRank;
+          rankSelect.value = String(safeRank);
+          rankSelect.onchange = () => {
+            modifier.value = Number(rankSelect.value) || 1;
+          };
+
+          valueHost.appendChild(rankSelect);
+          return;
+        }
+
+        const valueInput = document.createElement("input");
+        valueInput.type = "number";
+        valueInput.step = "1";
+        valueInput.value = Number.isFinite(Number(modifier.value)) ? String(modifier.value) : "0";
+        valueInput.oninput = () => modifier.value = Number(valueInput.value || 0);
+        valueHost.appendChild(valueInput);
+      }
+
+      function renderTargetControl() {
+        targetHost.innerHTML = "";
+
+        if (modifier.group === "Perks") {
+          const selected = document.createElement("div");
+          selected.style.cssText = `
+            min-height:30px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:8px;
+            padding:5px 8px;
+            margin-bottom:5px;
+            border:1px solid rgba(83,127,155,.42);
+            border-radius:6px;
+            background:#10283a;
+          `;
+
+          const selectedName = document.createElement("span");
+          selectedName.textContent = modifier.target
+            ? normalizePerkName(modifier.target)
+            : "No perk selected";
+          selectedName.style.cssText = modifier.target
+            ? "color:#f4ead5;font-weight:700;"
+            : "color:#aebdca;";
+
+          const rankMeta = document.createElement("span");
+          rankMeta.textContent = modifier.target
+            ? `Max ${Math.max(1, Number(modifier.maxRank) || getPerkMaxRank(modifier.target, 1))}`
+            : "";
+          rankMeta.style.cssText = "color:#aebdca;font-size:11px;";
+
+          selected.append(selectedName, rankMeta);
+
+          const perkSearch = createSearchBar({
+            fetchItems: fetchPerkData,
+            onSelect: item => {
+              const perkName = normalizePerkName(item?.name);
+              if (!perkName) return;
+
+              modifier.target = perkName;
+              modifier.maxRank = Math.max(1, Number(item?.maxRank) || 1);
+
+              if (modifier.operation === "perk_set") {
+                modifier.value = Math.max(
+                  1,
+                  Math.min(modifier.maxRank, Number(modifier.value) || 1)
+                );
+              } else {
+                modifier.value = 0;
+              }
+
+              renderModifierRows();
+            }
+          });
+
+          const perkSearchInput = perkSearch.querySelector("input");
+          if (perkSearchInput) perkSearchInput.placeholder = "Search perks...";
+
+          targetHost.append(selected, perkSearch);
+          return;
+        }
+
+        const targetSelect = document.createElement("select");
+        const targets = ACTIVE_EFFECT_TARGET_GROUPS[modifier.group] || [];
+
         targets.forEach(target => {
           const option = document.createElement("option");
           option.value = target;
@@ -2571,32 +2830,42 @@ function showActiveEffectEditor(existingEffect, onSave) {
 
         if (!targets.includes(modifier.target)) modifier.target = targets[0] || "";
         targetSelect.value = modifier.target;
+        targetSelect.onchange = () => modifier.target = targetSelect.value;
+        targetHost.appendChild(targetSelect);
       }
 
-      populateTargets();
+      populateOperations();
+      renderTargetControl();
+      renderValueControl();
 
       groupSelect.onchange = () => {
         modifier.group = groupSelect.value;
-        modifier.target = (ACTIVE_EFFECT_TARGET_GROUPS[modifier.group] || [])[0] || "";
-        populateTargets();
+
+        if (modifier.group === "Perks") {
+          modifier.target = "";
+          modifier.operation = "perk_add";
+          modifier.value = 0;
+          modifier.maxRank = 1;
+        } else {
+          const targets = ACTIVE_EFFECT_TARGET_GROUPS[modifier.group] || [];
+          modifier.target = targets[0] || "";
+          modifier.operation = "add";
+          modifier.value = 1;
+          delete modifier.maxRank;
+        }
+
+        renderModifierRows();
       };
-      targetSelect.onchange = () => modifier.target = targetSelect.value;
 
-      const operationSelect = document.createElement("select");
-      ACTIVE_EFFECT_OPERATIONS.forEach(op => {
-        const option = document.createElement("option");
-        option.value = op.value;
-        option.textContent = op.label;
-        operationSelect.appendChild(option);
-      });
-      operationSelect.value = modifier.operation || "add";
-      operationSelect.onchange = () => modifier.operation = operationSelect.value;
-
-      const valueInput = document.createElement("input");
-      valueInput.type = "number";
-      valueInput.step = "1";
-      valueInput.value = Number.isFinite(Number(modifier.value)) ? String(modifier.value) : "0";
-      valueInput.oninput = () => modifier.value = Number(valueInput.value || 0);
+      operationSelect.onchange = () => {
+        modifier.operation = operationSelect.value;
+        if (modifier.group === "Perks") {
+          modifier.value = modifier.operation === "perk_set"
+            ? Math.max(1, Number(modifier.value) || 1)
+            : 0;
+        }
+        renderValueControl();
+      };
 
       const removeBtn = document.createElement("button");
       removeBtn.type = "button";
@@ -2610,7 +2879,7 @@ function showActiveEffectEditor(existingEffect, onSave) {
         renderModifierRows();
       };
 
-      row.append(groupSelect, targetSelect, operationSelect, valueInput, removeBtn);
+      row.append(groupSelect, targetHost, operationSelect, valueHost, removeBtn);
       modifierList.appendChild(row);
     });
   }
@@ -2662,12 +2931,22 @@ function showActiveEffectEditor(existingEffect, onSave) {
     draft.notes = notesInput.value.trim();
     draft.active = draft.active !== false;
 
-    draft.modifiers = draft.modifiers.map(mod => ({
-      group: mod.group,
-      target: mod.target,
-      operation: mod.operation,
-      value: Number(mod.value) || 0
-    }));
+    draft.modifiers = draft.modifiers
+      .filter(mod => mod.group !== "Perks" || normalizePerkName(mod.target))
+      .map(mod => {
+        const saved = {
+          group: mod.group,
+          target: mod.group === "Perks" ? normalizePerkName(mod.target) : mod.target,
+          operation: mod.operation,
+          value: Number(mod.value) || 0
+        };
+
+        if (mod.group === "Perks") {
+          saved.maxRank = Math.max(1, Number(mod.maxRank) || getPerkMaxRank(mod.target, 1));
+        }
+
+        return saved;
+      });
 
     overlay.remove();
     onSave(draft);
@@ -9547,7 +9826,6 @@ async function renderMarkdownInto(containerEl, mdText) {
 
 let cachedPerkData = null;
 async function fetchPerkData() {
-	cachedPerkData = null;
     if (cachedPerkData) return cachedPerkData;
 
     let allFiles = await app.vault.getFiles();
@@ -9558,12 +9836,17 @@ async function fetchPerkData() {
 
         let stats = {
             name: `[[${file.basename}]]`,
-            qty: "1", // Default rank
+            qty: "1",      // Character-owned rank always starts at 1.
+            maxRank: 1,    // Source perk's maximum available rank.
+            sourcePath: file.path,
             description: "No description available"
         };
 
         let rankMatch = content.match(/Ranks?:\s*(\d+)/i);
-        if (rankMatch) stats.qty = rankMatch[1];
+        if (rankMatch) {
+          const parsedMax = Math.max(1, parseInt(rankMatch[1], 10) || 1);
+          stats.maxRank = parsedMax;
+        }
 		
         // --- Prefer YAML block scalars for description (supports markdown tables, lists, paragraphs) ---
 		const blockDesc = content.match(/^\s*(?:description|desc):\s*[|>]\s*\n([\s\S]*?)(?=^\s*\w+:\s|^\S|\Z)/m);
@@ -9784,62 +10067,294 @@ function renderGearTableSection() {
 }
 
 
-function renderPerkTableSection() {
-  return createEditableTable({
-    columns: perkColumns,
-    storageKey: PERK_STORAGE_KEY,
-    fetchItems: fetchPerkData,
-    cellOverrides: {
-      description: ({ rowData, col, saveAndRender }) => {
-        const td = document.createElement("td");
-        td.style.textAlign = "left";
-        td.style.verticalAlign = "top";
-        td.style.whiteSpace = "normal";
-        td.style.color = "#c5c5c5"
-        td.style.fontSize = "12px"
+function createPerkRankCell({ rowData, saveAndRender }) {
+  const td = document.createElement("td");
+  td.style.textAlign = "center";
+  td.style.verticalAlign = "middle";
 
-        const view = document.createElement("div");
-        view.style.whiteSpace = "normal";
-        view.style.cursor = "pointer";
+  const perkName = normalizePerkName(rowData?.name);
+  const maxRank = Math.max(1, Number(rowData?.maxRank) || getPerkMaxRank(perkName, 1));
+  rowData.maxRank = maxRank;
 
-        function render() {
-          renderPerkMarkdown(rowData.description ?? "", view);
-        }
-        render();
+  let baseRank = Math.max(1, Math.min(maxRank, Number(rowData?.qty) || 1));
+  rowData.qty = String(baseRank);
 
-        td.addEventListener("click", (e) => {
-          // Let internal links work
-          if (e.target.closest("a")) return;
-          if (td.querySelector("textarea")) return;
+  const effectiveInfo = getEffectivePerkRank(perkName, baseRank, maxRank);
 
-          const ta = document.createElement("textarea");
-          ta.value = String(rowData.description ?? "");
-          ta.style.width = "98%";
-          ta.style.minHeight = "120px";
-          ta.style.backgroundColor = "#fde4c9";
-          ta.style.color = "black";
-          ta.style.caretColor = "black";
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "display:flex;align-items:center;justify-content:center;gap:6px;";
 
-          ta.onblur = () => {
-            rowData.description = ta.value;
-            saveAndRender();
-          };
+  const minus = document.createElement("button");
+  minus.type = "button";
+  minus.textContent = "−";
+  minus.title = "Decrease permanent perk rank";
 
-          ta.onkeydown = (ev) => {
-            if (ev.key === "Escape") ta.blur();
-            if (ev.key === "Enter" && (ev.ctrlKey || ev.metaKey)) ta.blur();
-          };
+  const value = document.createElement("span");
+  value.textContent = effectiveInfo.effective > 0 ? String(effectiveInfo.effective) : "—";
+  value.style.cssText = `
+    min-width:26px;
+    text-align:center;
+    font-weight:850;
+    cursor:pointer;
+    color:${effectiveInfo.effective !== baseRank ? "#f3c64d" : "#efdd6f"};
+  `;
 
-          td.innerHTML = "";
-          td.appendChild(ta);
-          ta.focus();
-        });
+  if (effectiveInfo.effective !== baseRank) {
+    const effectNames = effectiveInfo.modifiers.map(mod => mod.effectName).filter(Boolean);
+    value.title = `Permanent rank: ${baseRank}\nEffective rank: ${effectiveInfo.effective}` +
+      (effectNames.length ? `\nActive Effects: ${effectNames.join(", ")}` : "");
+  } else {
+    value.title = `Permanent rank ${baseRank} of ${maxRank}`;
+  }
 
-        td.appendChild(view);
-        return td;
-      },
-    },
+  const plus = document.createElement("button");
+  plus.type = "button";
+  plus.textContent = "+";
+  plus.title = `Increase permanent perk rank (max ${maxRank})`;
+
+  minus.disabled = baseRank <= 1;
+  plus.disabled = baseRank >= maxRank;
+
+  const setBaseRank = next => {
+    const rank = Math.max(1, Math.min(maxRank, Math.round(Number(next) || 1)));
+    rowData.qty = String(rank);
+    rowData.maxRank = maxRank;
+    saveAndRender();
+  };
+
+  minus.onclick = e => {
+    e.stopPropagation();
+    setBaseRank(baseRank - 1);
+  };
+
+  plus.onclick = e => {
+    e.stopPropagation();
+    setBaseRank(baseRank + 1);
+  };
+
+  value.onclick = e => {
+    e.stopPropagation();
+
+    const select = document.createElement("select");
+    for (let rank = 1; rank <= maxRank; rank++) {
+      const option = document.createElement("option");
+      option.value = String(rank);
+      option.textContent = `Rank ${rank}`;
+      select.appendChild(option);
+    }
+    select.value = String(baseRank);
+    select.onchange = () => setBaseRank(select.value);
+    select.onblur = () => {
+      if (select.isConnected) wrap.replaceChild(value, select);
+    };
+
+    wrap.replaceChild(select, value);
+    select.focus();
+  };
+
+  wrap.append(minus, value, plus);
+  td.appendChild(wrap);
+  return td;
+}
+
+function renderActiveEffectGrantedPerks() {
+  const permanentNames = new Set(
+    loadStoredPerks().map(row => normalizePerkName(row?.name).toLowerCase())
+  );
+
+  const candidateNames = new Map();
+
+  loadActiveEffects().forEach(effect => {
+    if (!effect || effect.active === false) return;
+    (Array.isArray(effect.modifiers) ? effect.modifiers : []).forEach(mod => {
+      if (mod?.group !== "Perks") return;
+      const name = normalizePerkName(mod.target);
+      if (!name) return;
+      candidateNames.set(name.toLowerCase(), {
+        name,
+        maxRank: Math.max(1, Number(mod.maxRank) || 1)
+      });
+    });
   });
+
+  const granted = [...candidateNames.values()]
+    .filter(perk => !permanentNames.has(perk.name.toLowerCase()))
+    .map(perk => ({
+      ...perk,
+      effective: getEffectivePerkRank(perk.name, 0, perk.maxRank)
+    }))
+    .filter(perk => perk.effective.effective > 0)
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  if (!granted.length) return null;
+
+  const panel = document.createElement("div");
+  panel.className = "vk-active-effect-granted-perks";
+  panel.style.cssText = `
+    margin:0 0 10px;
+    padding:10px 12px;
+    border:1px solid rgba(243,198,77,.28);
+    border-radius:8px;
+    background:#102434;
+  `;
+
+  const title = document.createElement("div");
+  title.textContent = "Temporary Perks";
+  title.style.cssText = `
+    color:#f3c64d;
+    font-size:.78rem;
+    font-weight:850;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    margin-bottom:7px;
+  `;
+
+  const list = document.createElement("div");
+  list.style.cssText = "display:flex;flex-wrap:wrap;gap:6px;";
+
+  granted.forEach(perk => {
+    const chip = document.createElement("span");
+    chip.style.cssText = `
+      display:inline-flex;
+      gap:5px;
+      align-items:center;
+      padding:5px 8px;
+      border:1px solid rgba(83,127,155,.36);
+      border-radius:7px;
+      background:#172a3b;
+      color:#f4ead5;
+    `;
+
+    const name = document.createElement("span");
+    name.textContent = perk.name;
+    name.style.fontWeight = "750";
+
+    const rank = document.createElement("span");
+    rank.textContent = `Rank ${perk.effective.effective}`;
+    rank.style.cssText = "color:#f3c64d;font-size:.85em;";
+
+    chip.append(name, rank);
+    list.appendChild(chip);
+  });
+
+  panel.append(title, list);
+  return panel;
+}
+
+function renderPerkTableSection() {
+  const outer = document.createElement("div");
+
+  const renderTable = () => {
+    outer.innerHTML = "";
+
+    const temporary = renderActiveEffectGrantedPerks();
+    if (temporary) outer.appendChild(temporary);
+
+    const table = createEditableTable({
+      columns: perkColumns,
+      storageKey: PERK_STORAGE_KEY,
+      fetchItems: fetchPerkData,
+      cellOverrides: {
+        qty: createPerkRankCell,
+        description: ({ rowData, col, saveAndRender }) => {
+          const td = document.createElement("td");
+          td.style.textAlign = "left";
+          td.style.verticalAlign = "top";
+          td.style.whiteSpace = "normal";
+          td.style.color = "#c5c5c5";
+          td.style.fontSize = "12px";
+
+          const view = document.createElement("div");
+          view.style.whiteSpace = "normal";
+          view.style.cursor = "pointer";
+
+          function render() {
+            renderPerkMarkdown(rowData.description ?? "", view);
+          }
+          render();
+
+          td.addEventListener("click", (e) => {
+            if (e.target.closest("a")) return;
+            if (td.querySelector("textarea")) return;
+
+            const ta = document.createElement("textarea");
+            ta.value = String(rowData.description ?? "");
+            ta.style.width = "98%";
+            ta.style.minHeight = "120px";
+            ta.style.backgroundColor = "#fde4c9";
+            ta.style.color = "black";
+            ta.style.caretColor = "black";
+
+            ta.onblur = () => {
+              rowData.description = ta.value;
+              saveAndRender();
+            };
+
+            ta.onkeydown = (ev) => {
+              if (ev.key === "Escape") ta.blur();
+              if (ev.key === "Enter" && (ev.ctrlKey || ev.metaKey)) ta.blur();
+            };
+
+            td.innerHTML = "";
+            td.appendChild(ta);
+            ta.focus();
+          });
+
+          td.appendChild(view);
+          return td;
+        }
+      }
+    });
+
+    outer.appendChild(table);
+  };
+
+  renderTable();
+
+  // Active Effects never mutate permanent perk storage. Rebuild only the perk
+  // presentation when the overlay changes.
+  const onPerkEffectsChanged = () => {
+    if (!outer.isConnected) {
+      window.removeEventListener("fallout:active-effects-updated", onPerkEffectsChanged);
+      return;
+    }
+    renderTable();
+  };
+  window.addEventListener("fallout:active-effects-updated", onPerkEffectsChanged);
+
+  // Backfill maxRank for older saved perk rows after definitions are available.
+  fetchPerkData().then(definitions => {
+    const rows = loadStoredPerks();
+    let changed = false;
+
+    rows.forEach(row => {
+      const name = normalizePerkName(row?.name).toLowerCase();
+      const def = definitions.find(item =>
+        normalizePerkName(item?.name).toLowerCase() === name
+      );
+      if (!def) return;
+
+      const maxRank = Math.max(1, Number(def.maxRank) || 1);
+      if (Number(row.maxRank) !== maxRank) {
+        row.maxRank = maxRank;
+        changed = true;
+      }
+
+      const currentRank = Math.max(1, Number(row.qty) || 1);
+      const cappedRank = Math.min(maxRank, currentRank);
+      if (String(row.qty) !== String(cappedRank)) {
+        row.qty = String(cappedRank);
+        changed = true;
+      }
+    });
+
+    if (changed) {
+      localStorage.setItem(PERK_STORAGE_KEY, JSON.stringify(rows));
+      renderTable();
+    }
+  }).catch(() => {});
+
+  return outer;
 }
 
 
