@@ -1,26 +1,91 @@
 ---
 Sheet_Type: Vehicle
 Vehicle_Cargo:
-  - name: "[[Junk]]"
+  - name: "[[Submachine Gun]]"
+    yamlName: Submachine Gun
+    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Submachine Gun.md
+    qty: "1"
+    cost: "134"
+    weight: "12"
+    selected: false
+    category: WEAPONS
+    addons:
+      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Receiver Mods/Powerful.md
+        link: "[[Powerful]]"
+        type: mod
+      - id: Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Explosive.md
+        link: "[[Explosive]]"
+        type: legendary
+    instanceId: inv-muj32a7n-rddiwnl
+  - name: "[[Assassin's Weapon]] [[Combat Shotgun]]"
+    yamlName: Combat Shotgun
+    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Combat Shotgun.md
+    qty: "1"
+    cost: "167"
+    weight: "15"
+    selected: false
+    category: WEAPONS
+    addons:
+      - id: Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Assassin's Weapon.md
+        link: "[[Assassin's Weapon]]"
+        type: legendary
+      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Receiver Mods/Advanced.md
+        link: "[[Advanced]]"
+        type: mod
+      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Muzzle/Suppressor.md
+        link: "[[Suppressor]]"
+        type: mod
+    instanceId: inv-muld96bl-emu810k
+  - name: Powerful [[Submachine Gun]]
+    yamlName: Powerful Submachine Gun
+    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Submachine Gun.md
+    qty: "1"
+    cost: "134"
+    weight: "12"
+    selected: false
+    category: WEAPONS
+    addons:
+      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Receiver Mods/Powerful.md
+        link: "[[Powerful]]"
+        type: mod
+      - id: Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Explosive.md
+        link: "[[Explosive]]"
+        type: legendary
+    instanceId: inv-muj3g1np-rwooxd3
+  - name: "[[Stimpak]]"
+    yamlName: ""
+    sourcePath: Fallout-RPG/Items/Consumables/Chems/Stimpak.md
+    qty: "5000"
+    cost: "50"
+    selected: false
+    category: CHEMS
+    weight: <1
+  - name: Test [[Heavy Leather Arm]]
+    yamlName: Heavy Leather Arm
+    sourcePath: Fallout-RPG/Items/Apparel/Armor/Leather/Heavy Leather Arm.md
+    qty: "1"
+    cost: "43"
+    weight: "9"
+    selected: false
+    category: APPAREL
+    addons:
+      - id: Fallout-RPG/Items/Mods/Armor Mods/Upgrade Mods/Deep Pocketed.md
+        link: "[[Deep Pocketed]]"
+        type: mod
+    instanceId: inv-muo88vgt-ayxmjfy
+  - name: Deathclaw Hand
     yamlName: Junk
     sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Junk.md
     qty: "1"
-    cost: "3000"
-    weight: "500"
+    cost: "2"
+    weight: "2"
     selected: false
     category: MISC
+    baseCost: 2
     instanceName: Motorcycle
-  - name: "[[Common Material]]"
-    qty: "120"
-    cost: "1"
-    selected: false
-    category: MISC
-    sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Common Material.md
-    yamlName: Common Material
-    weight: "1"
 Fuel Type: Fusion Core
 Max Fuel: 14
-Current Fuel: 4
+Current Fuel: 10
 Vehicle_HP_Max: 40
 Vehicle_HP_Current: 40
 Weapon1: 105mm Cannon
@@ -34,8 +99,8 @@ Engine Injury: false
 Weapon Injury: false
 Wheel,Wing,Rudder Injury: false
 Cargo Capacity: 500
-Passenger Spaces: 8
-Passenger Spaces Used for Cargo: 4
+Passenger Spaces: 6
+Passenger Spaces Used for Cargo: 2
 ---
 
 
@@ -358,11 +423,23 @@ Passenger Spaces Used for Cargo: 4
       .trim();
   }
 
+  function cargoDisplayName(item) {
+    const custom = String(item?.instanceName ?? "").trim();
+    if (custom) return custom;
+
+    return cargoPlainName(
+      item?.name ||
+      item?.link ||
+      item?.yamlName ||
+      ""
+    );
+  }
+
   function cargoItemIdentity(item) {
     const instanceId = String(item?.instanceId || "").trim();
     if (instanceId) return `instance::${instanceId}`;
     const source = String(item?.sourcePath || item?.yamlName || "").trim().toLowerCase();
-    const displayName = stripWikiLink(item?.name || item?.link || item?.yamlName || "").trim().toLowerCase();
+    const displayName = cargoDisplayName(item).trim().toLowerCase();
     return `${source}::${displayName}`;
   }
 
@@ -506,7 +583,7 @@ Passenger Spaces Used for Cargo: 4
     const modal = document.createElement("div");
     modal.className = "vkv-modal";
     const title = document.createElement("div");
-    title.textContent = `Transfer ${cargoPlainName(item.name || item.link || "Item")} to ${getCurrentCharacterName()}`;
+    title.textContent = `Transfer ${cargoDisplayName(item) || "Item"} to ${getCurrentCharacterName()}`;
     title.style = "color:#ffc200;font-weight:bold;font-size:1.15em;text-align:center;margin-bottom:14px;";
     modal.appendChild(title);
 
@@ -711,7 +788,35 @@ Passenger Spaces Used for Cargo: 4
       const nameTd = document.createElement("td");
       nameTd.style = "text-align:left;padding:6px;color:#fde4c9;border-top:1px solid #294c75;";
       const rawName = String(item.name || item.link || "");
-      appendCargoWikiLink(nameTd, rawName);
+      const displayName = cargoDisplayName(item);
+      const customName = String(item?.instanceName ?? "").trim();
+
+      if (customName) {
+        const sourceTarget = String(
+          item?.sourcePath ||
+          item?.yamlName ||
+          cargoPlainName(rawName)
+        ).trim();
+
+        if (sourceTarget) {
+          const link = document.createElement("a");
+          link.className = "internal-link vkv-internal-link";
+          link.textContent = displayName;
+          link.href = sourceTarget;
+          link.dataset.href = sourceTarget;
+          link.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            app.workspace.openLinkText(sourceTarget, file.path, false);
+          };
+          nameTd.appendChild(link);
+        } else {
+          nameTd.textContent = displayName;
+        }
+      } else {
+        appendCargoWikiLink(nameTd, rawName);
+      }
+
       tr.appendChild(nameTd);
 
       [
@@ -750,7 +855,7 @@ Passenger Spaces Used for Cargo: 4
         }
         writeCharacterGear(rows);
         await writeCargo(cargo);
-        showVehicleNotice(`Transferred ${cargoPlainName(item.name || item.link || "Item")} to ${getCurrentCharacterName()}.`);
+        showVehicleNotice(`Transferred ${cargoDisplayName(item) || "Item"} to ${getCurrentCharacterName()}.`);
       });
       const del = document.createElement("span");
       del.textContent = "🗑️";
