@@ -1,6 +1,24 @@
 ---
 Sheet_Type: Vehicle
-Vehicle_Cargo: []
+Vehicle_Cargo:
+  - name: Deathclaw Hand
+    yamlName: Junk
+    sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Junk.md
+    qty: "1"
+    cost: "2"
+    weight: "3000"
+    selected: false
+    category: MISC
+    baseCost: 2
+    instanceName: Motorcycle
+  - name: "[[Common Material]]"
+    qty: "120"
+    cost: "1"
+    selected: false
+    category: MISC
+    sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Common Material.md
+    yamlName: Common Material
+    weight: "1"
 Fuel Type: Fusion Core
 Max Fuel: 14
 Current Fuel: 10
