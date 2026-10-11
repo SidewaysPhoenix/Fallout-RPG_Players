@@ -99,8 +99,8 @@ Engine Injury: false
 Weapon Injury: false
 Wheel,Wing,Rudder Injury: false
 Cargo Capacity: 500
-Passenger Spaces: 6
-Passenger Spaces Used for Cargo: 2
+Passenger Spaces: 8
+Passenger Spaces Used for Cargo: 4
 ---
 
 
