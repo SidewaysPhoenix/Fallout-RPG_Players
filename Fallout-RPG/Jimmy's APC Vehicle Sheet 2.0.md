@@ -1,16 +1,6 @@
 ---
 Sheet_Type: Vehicle
 Vehicle_Cargo:
-  - name: Deathclaw Hand
-    yamlName: Junk
-    sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Junk.md
-    qty: "1"
-    cost: "2"
-    weight: "3000"
-    selected: false
-    category: MISC
-    baseCost: 2
-    instanceName: Motorcycle
   - name: "[[Common Material]]"
     qty: "169"
     cost: "1"
