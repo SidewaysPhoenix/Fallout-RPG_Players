@@ -12,5 +12,6 @@
     "trade_menu",
     "character-sheet",
     "vehicle-sheet"
-  ]
+  ],
+  "baseFontSize": 14
 }
