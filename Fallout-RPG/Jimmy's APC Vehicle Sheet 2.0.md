@@ -19,6 +19,82 @@ Vehicle_Cargo:
     sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Common Material.md
     yamlName: Common Material
     weight: "1"
+  - name: "[[Fat Man]]"
+    yamlName: Fat Man
+    sourcePath: Fallout-RPG/Items/Weapons/Big Guns/Fat Man.md
+    qty: "1"
+    cost: "512"
+    weight: "31"
+    selected: false
+    category: WEAPONS
+    addons: []
+  - name: "[[Combat Rifle]]"
+    yamlName: Combat Rifle
+    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Combat Rifle.md
+    qty: "1"
+    cost: "175"
+    weight: "14"
+    selected: false
+    category: WEAPONS
+    addons:
+      - id: Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Two-Shot.md
+        link: "[[Two-Shot]]"
+        type: legendary
+      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Receiver Mods/Advanced.md
+        link: "[[Advanced]]"
+        type: mod
+      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Magazine/Large Quick-Eject Magazine.md
+        link: "[[Large Quick-Eject Magazine]]"
+        type: mod
+    instanceId: inv-mv2tbfor-filgz3n
+  - name: "[[Gauss Shotgun]]"
+    yamlName: Gauss Shotgun
+    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Gauss Shotgun.md
+    qty: "1"
+    cost: "400"
+    weight: "14"
+    selected: false
+    category: WEAPONS
+  - name: "[[Submachine Gun]]"
+    yamlName: Submachine Gun
+    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Submachine Gun.md
+    qty: "1"
+    cost: "134"
+    weight: "12"
+    selected: false
+    category: WEAPONS
+    addons:
+      - id: Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Explosive.md
+        link: "[[Explosive]]"
+        type: legendary
+      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Receiver Mods/Powerful.md
+        link: "[[Powerful]]"
+        type: mod
+    instanceId: inv-mv2t8ef8-pfq3chc
+  - name: "[[Plasma Gun]]"
+    yamlName: Plasma Gun
+    sourcePath: Fallout-RPG/Items/Weapons/Energy/Plasma Gun.md
+    qty: "5"
+    cost: "123"
+    weight: "4"
+    selected: false
+    category: WEAPONS
+  - name: "[[Pipe Wrench]]"
+    yamlName: Pipe Wrench
+    sourcePath: Fallout-RPG/Items/Weapons/Melee/Pipe Wrench.md
+    qty: "1"
+    cost: "30"
+    weight: "2"
+    selected: false
+    category: WEAPONS
+  - name: "[[Switchblade]]"
+    yamlName: Switchblade
+    sourcePath: Fallout-RPG/Items/Weapons/Melee/Switchblade.md
+    qty: "1"
+    cost: "20"
+    weight: "1"
+    selected: false
+    category: WEAPONS
 Fuel Type: Fusion Core
 Max Fuel: 14
 Current Fuel: 10
