@@ -93,6 +93,16 @@ Vehicle_Cargo:
     weight: "1"
     selected: false
     category: MISC
+  - name: Deathclaw Hand
+    yamlName: Junk
+    sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Junk.md
+    qty: "1"
+    cost: "3000"
+    weight: "500"
+    selected: false
+    category: MISC
+    baseCost: 2
+    instanceName: Motorcycle
 Fuel Type: Fusion Core
 Max Fuel: 14
 Current Fuel: 10
