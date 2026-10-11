@@ -37,54 +37,6 @@ Vehicle_Cargo:
         link: "[[Large Quick-Eject Magazine]]"
         type: mod
     instanceId: inv-mv2tbfor-filgz3n
-  - name: "[[Gauss Shotgun]]"
-    yamlName: Gauss Shotgun
-    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Gauss Shotgun.md
-    qty: "1"
-    cost: "400"
-    weight: "14"
-    selected: false
-    category: WEAPONS
-  - name: "[[Submachine Gun]]"
-    yamlName: Submachine Gun
-    sourcePath: Fallout-RPG/Items/Weapons/Small Guns/Submachine Gun.md
-    qty: "1"
-    cost: "134"
-    weight: "12"
-    selected: false
-    category: WEAPONS
-    addons:
-      - id: Fallout-RPG/Legendary Item Creation/Legendary Weapons/Legendary Weapon Properties/Explosive.md
-        link: "[[Explosive]]"
-        type: legendary
-      - id: Fallout-RPG/Items/Mods/Weapon Mods/Small Guns/Receiver Mods/Powerful.md
-        link: "[[Powerful]]"
-        type: mod
-    instanceId: inv-mv2t8ef8-pfq3chc
-  - name: "[[Plasma Gun]]"
-    yamlName: Plasma Gun
-    sourcePath: Fallout-RPG/Items/Weapons/Energy/Plasma Gun.md
-    qty: "5"
-    cost: "123"
-    weight: "4"
-    selected: false
-    category: WEAPONS
-  - name: "[[Pipe Wrench]]"
-    yamlName: Pipe Wrench
-    sourcePath: Fallout-RPG/Items/Weapons/Melee/Pipe Wrench.md
-    qty: "1"
-    cost: "30"
-    weight: "2"
-    selected: false
-    category: WEAPONS
-  - name: "[[Switchblade]]"
-    yamlName: Switchblade
-    sourcePath: Fallout-RPG/Items/Weapons/Melee/Switchblade.md
-    qty: "1"
-    cost: "20"
-    weight: "1"
-    selected: false
-    category: WEAPONS
   - name: "[[Uncommon Material]]"
     yamlName: Uncommon Material
     sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Uncommon Material.md
