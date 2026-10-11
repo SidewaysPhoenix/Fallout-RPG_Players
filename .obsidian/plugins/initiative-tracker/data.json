@@ -101,9 +101,8 @@
     "creatures": [],
     "state": false,
     "name": null,
-    "round": 1,
-    "logFile": "",
-    "rollHP": false
+    "round": null,
+    "logFile": null
   },
   "condense": false,
   "clamp": true,
