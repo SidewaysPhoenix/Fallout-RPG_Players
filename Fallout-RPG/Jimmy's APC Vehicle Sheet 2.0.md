@@ -55,6 +55,15 @@ Vehicle_Cargo:
     category: MISC
     baseCost: 2
     instanceName: Motorcycle
+  - name: "[[Junk]]"
+    yamlName: Junk
+    sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Junk.md
+    category: MISC
+    cost: 2
+    baseCost: 2
+    weight: "2"
+    qty: "41"
+    selected: false
 Fuel Type: Fusion Core
 Max Fuel: 14
 Current Fuel: 10
