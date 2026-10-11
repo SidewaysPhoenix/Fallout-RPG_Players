@@ -3,21 +3,14 @@
   "enabledCssSnippets": [
     "Change color of internal links",
     "character-sheet",
-<<<<<<< HEAD
-    "vehicle-sheet"
-  ],
-  "baseFontSize": 14
-=======
     "editbuttonstyling",
     "fantasystatblock images",
     "hide notifications",
     "Scrollbar",
     "trade_menu",
     "tree design",
-    "vehicle-sheet",
-    "vault-kit-fantasy-statblocks"
+    "vault-kit-fantasy-statblocks",
+    "vehicle-sheet"
   ],
-  "theme": "obsidian",
-  "baseFontSize": 12
->>>>>>> origin/main
+  "theme": "obsidian"
 }
