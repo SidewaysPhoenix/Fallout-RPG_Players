@@ -12,7 +12,7 @@ Vehicle_Cargo:
     baseCost: 2
     instanceName: Motorcycle
   - name: "[[Common Material]]"
-    qty: "120"
+    qty: "169"
     cost: "1"
     selected: false
     category: MISC
@@ -95,6 +95,14 @@ Vehicle_Cargo:
     weight: "1"
     selected: false
     category: WEAPONS
+  - name: "[[Uncommon Material]]"
+    yamlName: Uncommon Material
+    sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Uncommon Material.md
+    qty: "11"
+    cost: "3"
+    weight: "1"
+    selected: false
+    category: MISC
 Fuel Type: Fusion Core
 Max Fuel: 14
 Current Fuel: 10
