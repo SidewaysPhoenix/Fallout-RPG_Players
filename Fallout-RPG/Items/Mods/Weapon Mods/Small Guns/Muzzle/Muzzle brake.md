@@ -10,8 +10,8 @@ effects:
    desc: "Remove [[Inaccurate]]"
 weight: "+1"
 cost: "+30"
-perks: "Gun Nut 2"
-complexity: "[[Crafting Complexity|3]]"
+perks: "Gun Nut 1"
+complexity: "3"
 skill: "Repair"
 rarity: "Uncommon"
 ```

@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Shielded Lining"
+name prefix: "Shielded"
 armor category: "Vault Jumpsuit"
 mod type: "Jumpsuit Mod"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: "+3"
  - name: Radiation
    desc: "+3"
-effects: ""
+gameEffects: ""
 locations: "Arm"
 weight: "+1"
 cost: "+50"
-complexity: "[[Crafting Complexity|6]]"
+complexity: "6"
 skill: "Repair"
 perks: "Armorer 4, Science! 4"
 rarity: "Uncommon"

@@ -10,8 +10,8 @@ effects:
    desc: "Remove [[Close Quarters]]"
 weight: "+2"
 cost: "+20"
-perks: ""
-complexity: "[[Crafting Complexity|3]]"
+perks: "-"
+complexity: "3"
 skill: "Science"
 rarity: "Common"
 ```

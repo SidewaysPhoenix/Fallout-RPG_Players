@@ -10,10 +10,10 @@ effects:
    desc: "Gain [[Stun]]"
  - name: "Change Damage Type To"
    desc: "Energy"
-weight: ""
+weight: "+0"
 cost: "+100"
 perks: "Blacksmith 3, Science! 1"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Repair"
 rarity: "Uncommon"
 ```

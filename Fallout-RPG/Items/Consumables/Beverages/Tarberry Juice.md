@@ -7,7 +7,7 @@ hp healed: "3"
 irradiated: "-"
 weight: "<1"
 cost: "5" 
-item rarity: "4"
+rarity: "4"
 crafting: "Crafting"
 materials: 
  - name: [[Purified Water]]
@@ -18,8 +18,8 @@ materials:
    desc: ""
  - name: 
    desc: ""
-complexity: "[[Crafting Complexity|2]]"
-perks: ""
+complexity: "2"
+perks: "-"
 skill: "Survival"
 recipe rarity: "Common"
 ```

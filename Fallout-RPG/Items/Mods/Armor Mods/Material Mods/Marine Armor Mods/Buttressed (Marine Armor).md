@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Buttressed"
+name prefix: "Buttressed"
 armor category: "Marine Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,7 +11,7 @@ dmg resistances:
    desc: "+4"
  - name: Radiation
    desc: "+4"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+3"
 cost: "+75"

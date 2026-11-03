@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Raider II Leg"
+name prefix: ""
 armor category: "Power Armor"
 mod type: "Upgrade Mod"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: "-"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: "Leg"
 weight: "+2"
 cost: "+7"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "Armorer 1"
 rarity: "Uncommon"

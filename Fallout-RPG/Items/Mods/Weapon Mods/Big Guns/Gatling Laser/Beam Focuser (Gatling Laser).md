@@ -8,10 +8,10 @@ effects:
    desc: "+1"
  - name: "Weapon Damage Effects"
    desc: "Gain [[Piercing]] (1)"
-weight: ""
+weight: "+0"
 cost: "+22"
-perks: ""
-complexity: "[[Crafting Complexity|4]]"
+perks: "-"
+complexity: "4"
 skill: "Science"
 rarity: "Uncommon"
 ```

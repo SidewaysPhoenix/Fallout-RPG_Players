@@ -6,14 +6,11 @@ name prefix: "Mk IV"
 effects:
  - name: "Damage"
    desc: "+2d6"
- - name: "Effects"
-   desc: "Consumes 4 shots per attack"
+gameEffects: "Consumes 4 shots per attack."
 weight: "+1"
 cost: "+8"
 perks: "Robotics Expert,  Science! 1"
-crafting: ""
-materials:
-complexity: ""
+complexity: "4"
 skill: "Science"
-rarity: ""
+rarity: "Uncommon"
 ```

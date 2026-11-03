@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "T-60d Helm"
+name prefix: ""
 armor category: "Power Armor"
 mod type: "Upgrade Mod"
 dmg resistances:
@@ -10,13 +11,13 @@ dmg resistances:
    desc: "+2"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: "Head"
 weight: "+2"
 cost: "+96"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Repair"
-perks: "Armorer 2, Science! 1"
+perks: "Armorer 2, Science! 2"
 rarity: "Uncommon"
 hp: "+2"
 ```

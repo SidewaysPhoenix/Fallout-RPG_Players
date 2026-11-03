@@ -9,9 +9,9 @@ effects:
  - name: "Change Damage Type To"
    desc: "Energy"
 weight: "-"
-cost: "50"
+cost: "+50"
 perks: "Blacksmith 2, Science! 1"
 skill: "Repair"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 rarity: "Uncommon"
 ```

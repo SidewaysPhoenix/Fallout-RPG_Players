@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Actuated Frame - Thruster"
+name prefix: "Actuated"
 armor category: "Robot Armor"
 cost: "15"
 dmg resistances: 
@@ -8,10 +9,10 @@ dmg resistances:
    desc: "+1"
  - name: "Energy"
    desc: "+1"
-effects: "Melee attacks made from arms fitted with an actuated frame inflict +1D6 damage. If the robot’s Thruster is fitted with an actuated frame, it may make both a [[Move]] minor action and a [[Sprint]] major action."
+gameEffects: "Melee attacks made from arms fitted with an actuated frame inflict +1D6 damage. If the robot’s Thruster is fitted with an actuated frame, it may make both a [[Move]] minor action and a [[Sprint]] major action."
 locations: "Thruster"
 carry weight: "+10"
-complexity: "[[Crafting Complexity|2]]"
+complexity: "2"
 skill: "Repair"
 perks: "-"
 rarity: "Common"

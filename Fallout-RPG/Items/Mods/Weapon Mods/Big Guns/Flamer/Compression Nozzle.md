@@ -6,10 +6,10 @@ name prefix: "Compressed"
 effects:
  - name: "Damage"
    desc: "+1d6"
-weight: ""
+weight: "+0"
 cost: "+22"
 perks: "Gun Nut 1"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 rarity: "Common"
 ```

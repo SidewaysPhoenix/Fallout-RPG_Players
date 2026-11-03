@@ -6,10 +6,10 @@ name prefix: "Hardened"
 effects:
  - name: "Damage"
    desc: "+1d6"
-weight: ""
+weight: "+0"
 cost: "+20"
-perks: ""
-complexity: "[[Crafting Complexity|2]]"
+perks: "-"
+complexity: "2"
 skill: "Repair"
 rarity: "Common"
 ```

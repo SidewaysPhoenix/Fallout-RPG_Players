@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "T-45e Arm"
+name prefix: ""
 armor category: "Power Armor"
 mod type: "Upgrade"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: "+3"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: "Arm" 
 weight: "+3"
 cost: "+20"
-complexity: "[[Crafting Complexity|6]]"
+complexity: "6"
 skill: "Repair"
 perks:  "Armorer 3, Science! 1"
 rarity: "Uncommon"

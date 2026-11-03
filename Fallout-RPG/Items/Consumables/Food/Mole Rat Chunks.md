@@ -7,7 +7,7 @@ hp healed: "7"
 irradiated: "-"
 weight: "<1"
 cost: "8" 
-item rarity: "1"
+rarity: "1"
 crafting: "Crafting"
 materials: 
  - name: [[Mole Rat Meat]]
@@ -18,8 +18,8 @@ materials:
    desc: ""
  - name: 
    desc: ""
-complexity: "[[Crafting Complexity|1]]"
-perks: ""
+complexity: "1"
+perks: "-"
 skill: "Survival"
 recipe rarity: "Common"
 ```

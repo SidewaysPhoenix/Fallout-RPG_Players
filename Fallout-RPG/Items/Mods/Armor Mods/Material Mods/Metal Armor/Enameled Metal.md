@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Enameled Metal"
+name prefix: "Enameled"
 armor category: "Metal Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,13 +11,13 @@ dmg resistances:
    desc: "+2"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+2"
 cost: "+20"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "Armorer 1"
-rarity: "Common"
+rarity: "Uncommon"
 hp: ""
 ```

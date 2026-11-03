@@ -6,10 +6,10 @@ name prefix: "Excited"
 effects:
  - name: "Weapon Damage Effects"
    desc: "Gain [[Vicious]]"
-weight: ""
+weight: "+0"
 cost: "+30"
 perks: "Science! 1"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Science"
 rarity: "Uncommon"
 ```

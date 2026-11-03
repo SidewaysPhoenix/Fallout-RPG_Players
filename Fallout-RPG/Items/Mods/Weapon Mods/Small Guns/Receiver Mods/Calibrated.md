@@ -6,10 +6,10 @@ name prefix: "Calibrated"
 effects:
  - name: "Weapon Damage Effects"
    desc: "Gain [[Vicious]]"
-weight: ""
+weight: "+0"
 cost: "+25"
-perks: ""
-complexity: "[[Crafting Complexity|2]]"
+perks: "-"
+complexity: "2"
 skill: "Repair"
 rarity: "Common"
 ```

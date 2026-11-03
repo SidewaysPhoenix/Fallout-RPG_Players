@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Tesla Coils"
+name prefix: "Tesla Coils"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Can turn on or off at the start of a turn. While on, all enemies within Reach suffer 4 [[Piercing]] 1, [[Stun]] Energy damage at the end of the robot’s turn"
+gameEffects: "Can turn on or off at the start of a turn. While on, all enemies within Reach suffer 4 [[Piercing]] 1, [[Stun]] Energy damage at the end of the robot’s turn"
 locations: "-"
 weight: "-25"
 cost: "100"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Science"
 perks: "Robotics Expert 2, Science! 1"
 rarity: "5"

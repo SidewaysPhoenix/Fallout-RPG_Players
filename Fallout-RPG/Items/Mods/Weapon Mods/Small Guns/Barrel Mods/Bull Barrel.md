@@ -6,10 +6,10 @@ name prefix: "Bull Barrel"
 effects:
  - name: "Weapon Qualities"
    desc: "Gain [[Reliable]]"
-weight: ""
+weight: "+0"
 cost: "+10"
 perks: "Gun Nut 3"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Repair"
 rarity: "Uncommon"
 ```

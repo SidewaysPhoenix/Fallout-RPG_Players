@@ -1,17 +1,18 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Hydraulic Frame - Arms"
+name prefix: "Hydraulic"
 armor category: "Robot Armor"
 dmg resistances: 
  - name: "Physical" 
    desc: "+3"
  - name: "Energy"
    desc: "+3"
-effects: "Melee attacks made from arms fitted with a hydraulic frame inflict +1D6 damage and gain the [[Stun]] damage effect."
+gameEffects: "Melee attacks made from arms fitted with a hydraulic frame inflict +1D6 damage and gain the [[Stun]] damage effect."
 locations: "Arms"
 carry weight: "+5"
 cost: "30"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Repair"
 perks: "Armorer 3"
 rarity: "Uncommon"

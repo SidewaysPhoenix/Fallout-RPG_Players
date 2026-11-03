@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Girded Leather"
+name prefix: "Girded"
 armor category: "Leather Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: "+2"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+1"
 cost: "+10"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "-"
 rarity: "Common"

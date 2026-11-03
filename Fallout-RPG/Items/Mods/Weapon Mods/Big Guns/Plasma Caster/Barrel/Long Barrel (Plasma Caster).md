@@ -7,9 +7,9 @@ effects:
  - name: "Range"
    desc: "+1"
 weight: "+5"
-cost: "128"
+cost: "+128"
 perks: "Science! 4"
 skill: "Science"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 rarity: "Uncommon"
 ```

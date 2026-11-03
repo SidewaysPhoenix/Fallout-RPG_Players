@@ -2,12 +2,12 @@
 layout: Fallout_2D20_Consumables
 consumables name: "Honey Cake"
 desc: "Sweet and soft honey cakes are the perfect treat after a hard days surviving, with the added bonus that all those irradiated ingredients combined make you feel stronger than ever and ready to take on whatever the wasteland can throw at you. "
-effects: "+3 radiation resistance to the end of the next scene"
+effects: "+3 *radiation* resistance to the end of the next scene"
 hp healed: "12"
-irradiated: ""
+irradiated: "-"
 weight: "1"
 cost: "80" 
-item rarity: "4"
+rarity: "4"
 crafting: "Crafting"
 materials: 
  - name: [[Honey]] 
@@ -19,7 +19,7 @@ materials:
  - name: [[Mirelurk Egg]]
    desc: "x2"
 complexity: "4"
-perks: ""
+perks: "-"
 skill: "Survival"
 recipe rarity: "Rare"
 ```

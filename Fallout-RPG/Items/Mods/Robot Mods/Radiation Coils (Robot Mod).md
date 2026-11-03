@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Radiation Coils"
+name prefix: "Radiation Coils"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Can turn on or off at the start of a turn. While on, all creatures within Reach suffer 3 Radiation damage at the end of the robot’s turn"
+gameEffects: "Can turn on or off at the start of a turn. While on, all creatures within Reach suffer 3 Radiation damage at the end of the robot’s turn"
 locations: "-"
 weight: "-10"
 cost: "50"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Science"
 perks: "Robotics Expert 1"
 rarity: "3"

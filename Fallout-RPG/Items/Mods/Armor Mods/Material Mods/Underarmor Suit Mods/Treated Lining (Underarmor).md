@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Treated Lining"
+name prefix: "Treated"
 armor category: "Underarmor Suit"
 mod type: "Lining"
 dmg resistances:
@@ -10,13 +11,13 @@ dmg resistances:
    desc: "+2"
  - name: Radiation
    desc: "+1"
-effects: ""
+gameEffects: ""
 locations: ""
-weight: ""
+weight: "+0"
 cost: "+9"
 complexity: "2"
 skill: "Repair"
-perks: ""
+perks: "-"
 rarity: "Common"
 hp: ""
 ```

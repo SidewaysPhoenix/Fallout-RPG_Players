@@ -8,10 +8,10 @@ effects:
    desc: "+1d6"
  - name: "Fire Rate"
    desc: "-1"
-weight: ""
+weight: "+0"
 cost: "+35"
-perks: ""
-complexity: "[[Crafting Complexity|2]]"
+perks: "-"
+complexity: "2"
 skill: "Science"
 rarity: "Common"
 ```

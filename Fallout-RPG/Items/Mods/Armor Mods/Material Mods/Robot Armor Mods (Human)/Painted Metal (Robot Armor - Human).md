@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Painted Metal"
+name prefix: "Painted"
 armor category: "Robot Armor - Human"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,13 +11,13 @@ dmg resistances:
    desc: "+1"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+1"
 cost: "+10"
 complexity: "2"
 skill: "Repair"
-perks: ""
+perks: "-"
 rarity: "Common"
 hp: ""
 ```

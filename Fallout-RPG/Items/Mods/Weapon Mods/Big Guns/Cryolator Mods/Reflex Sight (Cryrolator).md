@@ -1,17 +1,13 @@
 ```statblock
 layout: Fallout_2d20_weapon_mods
 category: "Cryolator Sight"
-mod: "Reflex"
+mod: "Reflex Sight"
 name prefix: "Tactical"
-effects:
- - name: "Effects"
-   desc: "May re-roll hit location die"
-weight: ""
+gameEffects: "May re-roll hit location die."
+weight: "+0"
 cost: "+17"
-perks: ""
-crafting: ""
-materials:
-complexity: ""
+perks: "-"
+complexity: "2"
 skill: "Science"
-rarity: ""
+rarity: "Common"
 ```

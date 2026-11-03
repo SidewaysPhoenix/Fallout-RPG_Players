@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Lockpick Module"
+name prefix: "Lockpicking"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Reduce the difficulty of **Lockpick** tests by 1 (min. 0), Does not need bobby pins or other lockpicking tools"
+gameEffects: "Reduce the difficulty of *Lockpick* tests by 1 (min. 0), Does not need bobby pins or other lockpicking tools"
 locations: "-"
 weight: "-5"
 cost: "25"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Science"
 perks: "-"
 rarity: "2"

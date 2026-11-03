@@ -8,8 +8,8 @@ effects:
    desc: "Gain [[Accurate]]"
 weight: "+1"
 cost: "+11"
-perks: "Science! 1"
-complexity: "[[Crafting Complexity|2]]"
+perks: "-"
+complexity: "2"
 skill: "Repair"
 rarity: "Common"
 ```

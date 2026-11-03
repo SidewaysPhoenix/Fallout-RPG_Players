@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Protective Lining"
+name prefix: "Protective"
 armor category: "Underarmor Suit"
 mod type: "Lining"
 dmg resistances:
@@ -10,9 +11,9 @@ dmg resistances:
    desc: "+2"
  - name: Radiation
    desc: "+1"
-effects: "May use **STR** or **PER** re-rolls twice per scene."
+gameEffects: "May use *STR* or *PER* re-rolls twice per scene."
 locations: ""
-weight: ""
+weight: "+0"
 cost: "+24"
 complexity: "3"
 skill: "Repair"

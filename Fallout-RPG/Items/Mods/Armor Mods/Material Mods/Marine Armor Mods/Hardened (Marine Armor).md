@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Hardened"
+name prefix: "Hardened"
 armor category: "Marine Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,7 +11,7 @@ dmg resistances:
    desc: "+3"
  - name: Radiation
    desc: "+3"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+2"
 cost: "+50"

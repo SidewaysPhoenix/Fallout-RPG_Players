@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Recon Sensors"
+name prefix: "Recon Sensor"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Reduce difficulty of tests to detect hidden opponents by 1 (min. 0). Enemies visible to you who attempt to hide add +1 to the difficulty of their **Sneak** tests"
+gameEffects: "Reduce difficulty of tests to detect hidden opponents by 1 (min. 0). Enemies visible to you who attempt to hide add +1 to the difficulty of their *Sneak* tests"
 locations: "-"
 weight: "-5"
 cost: "50"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Science"
 perks: "Robotics Expert 1"
 rarity: "3"

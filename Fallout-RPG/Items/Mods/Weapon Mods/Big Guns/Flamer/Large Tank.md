@@ -7,9 +7,9 @@ effects:
  - name: "Fire Rate"
    desc: "+1"
 weight: "+3"
-cost: "28"
+cost: "+28"
 perks: "Gun Nut 1"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 rarity: "Common"
 ```

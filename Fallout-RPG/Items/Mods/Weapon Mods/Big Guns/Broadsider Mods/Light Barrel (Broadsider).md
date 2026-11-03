@@ -11,9 +11,7 @@ effects:
 weight: "+3"
 cost: "+30"
 perks: "Gun Nut 2"
-crafting: ""
-materials:
-complexity: ""
+complexity: "4"
 skill: "Repair"
-rarity: ""
+rarity: "Uncommon"
 ```

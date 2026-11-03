@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Hacking Module"
+name prefix: "Hacking"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Reduces the difficulty of **Science** tests to hack into locked computer systems by 1 (min. 0)"
+gameEffects: "Reduces the difficulty of *Science* tests to hack into locked computer systems by 1 (min. 0)"
 locations: "-"
 weight: "-"
 cost: "25"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Science"
 perks: "Robotics Expert 1"
 rarity: "2"

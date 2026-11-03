@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Studded"
+name prefix: "Studded"
 armor category: "Legion Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,7 +11,7 @@ dmg resistances:
    desc: "+4"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+2"
 cost: "+30"

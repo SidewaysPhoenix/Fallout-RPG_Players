@@ -6,10 +6,10 @@ name prefix: "Shielded"
 effects:
  - name: "Damage"
    desc: "+1d6"
-weight: "+2"
+weight: "-"
 cost: "+37"
-perks: "Gun Nut 3, Repair"
-complexity: "[[Crafting Complexity|5]]"
+perks: "Gun Nut 3"
+complexity: "5"
 skill: "Repair"
 rarity: "Uncommon"
 ```

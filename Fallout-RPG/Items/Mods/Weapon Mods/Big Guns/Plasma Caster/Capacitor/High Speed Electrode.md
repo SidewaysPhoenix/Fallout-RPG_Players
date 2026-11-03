@@ -7,9 +7,9 @@ effects:
  - name: "Fire Rate"
    desc: "+1"
 weight: "+3"
-cost: "105"
+cost: "+105"
 perks: "Science! 3"
 skill: "Science"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 rarity: "Uncommon"
 ```

@@ -2,6 +2,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "T-51b Arm"
+name prefix: ""
 armor category: "Power Armor"
 mod type: "Upgrade Mod"
 dmg resistances:
@@ -11,11 +12,11 @@ dmg resistances:
    desc: "-"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: "Arm"
 weight: "+1"
 cost: "+6"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "Armorer 1"
 rarity: "Uncommon"

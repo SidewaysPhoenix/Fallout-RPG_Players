@@ -6,10 +6,10 @@ name prefix: "Quick High Capacity"
 effects:
  - name: "Fire Rate"
    desc: "+1"
-weight: "1"
+weight: "+1"
 cost: "+23"
 perks: "Gun Nut 2"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Repair"
 rarity: "Uncommon"
 ```

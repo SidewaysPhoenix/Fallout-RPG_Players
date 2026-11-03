@@ -10,12 +10,10 @@ effects:
    desc: "Fusion Cell"
  - name: "Change Base Damage To"
    desc: "3d6"
-weight: ""
+weight: "+0"
 cost: "+21"
 perks: "Science! 1"
-crafting: ""
-materials:
-complexity: ""
+complexity: "3"
 skill: "Science"
-rarity: ""
+rarity: "Uncommon"
 ```

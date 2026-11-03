@@ -12,8 +12,8 @@ effects:
    desc: "Gain [[Inaccurate]]"
 weight: "+1"
 cost: "+31"
-perks: ""
-complexity: "[[Crafting Complexity|3]]"
+perks: "-"
+complexity: "3"
 skill: "Science"
 rarity: "Common"
 ```

@@ -7,7 +7,7 @@ hp healed: "9"
 irradiated: "-"
 weight: "<1"
 cost: "40" 
-item rarity: "3"
+rarity: "3"
 crafting: "Crafting"
 materials: 
  - name: [[Softshell Mirelurk Meat]]
@@ -18,8 +18,8 @@ materials:
    desc: ""
  - name: 
    desc: ""
-complexity: "[[Crafting Complexity|1]]"
-perks: ""
+complexity: "1"
+perks: "-"
 skill: "Survival"
 recipe rarity: "Common"
 ```

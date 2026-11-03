@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "T-45f Helm"
+name prefix: ""
 armor category: "Power Armor"
 mod type: "Upgrade"
 dmg resistances:
@@ -10,13 +11,13 @@ dmg resistances:
    desc: "+2"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: "Head" 
 weight: "+3"
 cost: "+15"
-complexity: "[[Crafting Complexity|7]]"
+complexity: "7"
 skill: "Repair"
-perks:  "Armorer 3, Science 2"
+perks:  "Armorer 3, Science! 2"
 rarity: "Uncommon"
 hp: "+4"
 ```

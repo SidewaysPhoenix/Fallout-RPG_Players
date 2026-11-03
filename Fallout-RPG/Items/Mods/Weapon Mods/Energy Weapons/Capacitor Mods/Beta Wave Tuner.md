@@ -6,10 +6,10 @@ name prefix: "Incendiary"
 effects:
  - name: "Weapon Damage Effects"
    desc: "Gain [[Persistent]]"
-weight: ""
+weight: "+0"
 cost: "+30"
-perks: ""
-complexity: "[[Crafting Complexity|2]]"
+perks: "-"
+complexity: "2"
 skill: "Science"
 rarity: "Common"
 ```

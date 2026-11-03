@@ -6,10 +6,10 @@ name prefix: "Serrated"
 effects:
  - name: "Weapon Damage Effects"
    desc: "Gain [[Persistent]]"
-weight: ""
+weight: "+0"
 cost: "+25"
 perks: "Blacksmith 2"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 rarity: "Uncommon"
 ```

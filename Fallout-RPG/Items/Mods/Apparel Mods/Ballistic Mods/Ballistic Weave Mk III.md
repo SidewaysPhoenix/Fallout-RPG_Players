@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Ballistic Weave Mk III"
+name prefix: "Ballistic Weave Mk III"
 armor category: "Clothing and Outfits"
 mod type: "Ballistic Mod"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: "+4"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: "Arm"
 weight: "-"
 cost: "+40"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "Armorer 2"
 rarity: "Rare"

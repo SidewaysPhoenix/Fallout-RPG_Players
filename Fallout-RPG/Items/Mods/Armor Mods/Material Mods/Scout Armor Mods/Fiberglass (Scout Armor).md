@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Fiberglass"
+name prefix: "Fiberglass"
 armor category: "Scout Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,9 +11,9 @@ dmg resistances:
    desc: "+2"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
-weight: ""
+weight: "+0"
 cost: "+18"
 complexity: "5"
 skill: "Repair"

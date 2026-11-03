@@ -6,21 +6,19 @@ weight: "<1"
 cost: "17"
 rarity: "2"
 desc: "None of the Effects listed here may apply more than once at the same time to a single target."
-effects: 
- - name: ""
-   desc: "The weapon gains the [[Persistent]] damage effect"
+gameEffects: "The weapon gains the [[Persistent]] damage effect."
 crafting: "Crafting"
 materials:
- - name: Uncommon Materials
+ - name: [[Uncommon Material]]
    desc: "x2"
- - name: Common Materials
+ - name: [[Common Material]]
    desc: "x1"
  - name: 
    desc: ""
  - name: 
    desc: ""
-perks: ""
-complexity: "[[Crafting Complexity|3]]"
+perks: "-"
+complexity: "3"
 skill: "Science"
-crafting rarity: "Common"
+recipe rarity: "Common"
 ```

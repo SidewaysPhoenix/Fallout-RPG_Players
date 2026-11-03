@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Factory Storage Armor - Main Body"
+name prefix: "Factory Storage"
 armor category: "Robot Armor"
 dmg resistances: 
  - name: "Physical" 
@@ -10,7 +11,7 @@ dmg resistances:
 locations: "Main Body"
 carry weight: "+20"
 cost: "25"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "Armorer 1"
 rarity: "Uncommon"

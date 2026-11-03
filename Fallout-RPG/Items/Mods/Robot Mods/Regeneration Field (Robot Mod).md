@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Regeneration Field"
+name prefix: "Regeneration Field"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Outside of combat, allies regain 2 HP at the start of each scene you are present within"
+gameEffects: "Outside of combat, allies regain 2 HP at the start of each scene you are present within"
 locations: "-"
 weight: "-25"
 cost: "125"
-complexity: "[[Crafting Complexity|4]]"
+complexity: "4"
 skill: "Science"
 perks: "Robotics Expert 2, Science! 2"
 rarity: "5"

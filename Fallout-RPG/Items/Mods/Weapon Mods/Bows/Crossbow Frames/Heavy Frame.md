@@ -7,9 +7,9 @@ effects:
  - name: "Damage"
    desc: "+1d6"
 weight: "+1"
-cost: "30"
+cost: "+30"
 perks: "Gun Nut 1"
 skill: "Repair"
-complexity: "[[Crafting Complexity|2]]"
+complexity: "2"
 rarity: "Uncommon"
 ```

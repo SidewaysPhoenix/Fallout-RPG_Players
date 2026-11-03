@@ -6,14 +6,11 @@ name prefix: "Mk III"
 effects:
  - name: "Damage"
    desc: "+1d6"
- - name: "Effects"
-   desc: "Consumes 3 shots per attack"
-weight: ""
+gameEffects: "Consumes 3 shots per attack."
+weight: "+0"
 cost: "+4"
 perks: "Robotics Expert"
-crafting: ""
-materials:
-complexity: ""
+complexity: "3"
 skill: "Science"
-rarity: ""
+rarity: "Uncommon"
 ```

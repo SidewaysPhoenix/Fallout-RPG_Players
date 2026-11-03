@@ -1,22 +1,16 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Deep Pocketed"
+name prefix: "Deep Pocketed"
 armor category: "Armor"
 mod type: "Upgrade Mod"
-dmg resistances:
- - name: Physical
-   desc: "+3"
- - name: Energy
-   desc: "+3"
- - name: Radiation
-   desc: "-"
-effects: "-"
 locations: "All"
 weight: "+2"
-cost: "+15"
-complexity: "[[Crafting Complexity|4]]"
+cost: "+5"
+complexity: "4"
 skill: "Repair"
-perks: "Armorer 1"
+perks: "Armorer 2"
 rarity: "Uncommon"
 hp: ""
+carry weight: "+20"
 ```

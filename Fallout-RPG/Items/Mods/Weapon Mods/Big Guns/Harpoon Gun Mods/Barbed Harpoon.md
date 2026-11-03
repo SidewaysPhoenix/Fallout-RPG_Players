@@ -6,12 +6,10 @@ name prefix: "Barbed"
 effects:
  - name: "Weapon Damage Effects"
    desc: "Gain [[Vicious]], Gain [[Persistent]]"
-weight: ""
+weight: "+0"
 cost: "+21"
-perks: ""
-crafting: ""
-materials:
-complexity: ""
+perks: "-"
+complexity: "2"
 skill: "Repair"
-rarity: ""
+rarity: "Common"
 ```

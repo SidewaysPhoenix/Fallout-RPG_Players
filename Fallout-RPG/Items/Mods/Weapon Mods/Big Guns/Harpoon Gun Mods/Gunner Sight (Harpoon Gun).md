@@ -3,15 +3,11 @@ layout: Fallout_2d20_weapon_mods
 category: "Harpoon Gun Sight Mod"
 mod: "Gunner Sight"
 name prefix: "Tactical"
-effects:
- - name: "Effects"
-   desc: "May re-roll hit location die"
-weight: ""
+gameEffects: "May re-roll hit location die."
+weight: "+0"
 cost: "+17"
-perks: ""
-crafting: ""
-materials:
-complexity: ""
+perks: "-"
+complexity: "2"
 skill: "Repair"
-rarity: ""
+rarity: "Common"
 ```

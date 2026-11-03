@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Studded Leather"
+name prefix: "Studded"
 armor category: "Leather Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: "+4"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+2"
 cost: "+25"
-complexity: "[[Crafting Complexity|6]]"
+complexity: "6"
 skill: "Repair"
 perks: "Armorer 1"
 rarity: "Uncommon"

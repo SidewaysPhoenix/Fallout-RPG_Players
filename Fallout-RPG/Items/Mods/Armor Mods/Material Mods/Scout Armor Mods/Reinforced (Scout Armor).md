@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Reinforced"
+name prefix: "Reinforced"
 armor category: "Scout Armor"
 mod type: "Material"
 dmg resistances:
@@ -10,13 +11,13 @@ dmg resistances:
    desc: "+1"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
-weight: ""
+weight: "+0"
 cost: "+6"
 complexity: "3"
 skill: "Repair"
-perks: ""
+perks: "-"
 rarity: "Common"
 hp: ""
 ```

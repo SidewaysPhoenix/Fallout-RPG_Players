@@ -6,14 +6,11 @@ name prefix: "Mk VI"
 effects:
  - name: "Damage"
    desc: "+4d6"
- - name: "Effects"
-   desc: "Consumes 6 shots per attack"
+gameEffects: "Consumes 6 shots per attack."
 weight: "+2"
 cost: "+16"
 perks: "Robotics Expert, Science! 3"
-crafting: ""
-materials:
-complexity: ""
+complexity: "6"
 skill: "Science"
-rarity: ""
+rarity: "Uncommon"
 ```

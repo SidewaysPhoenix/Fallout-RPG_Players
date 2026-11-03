@@ -9,9 +9,9 @@ effects:
  - name: "Weapon Damage Effects"
    desc: "Gain [[Vicious]]"
 weight: "+3"
-cost: "135"
+cost: "+135"
 perks: "Gun Nut 4"
 skill: "Repair"
-complexity: "[[Crafting Complexity|4]]"
+complexity: "4"
 rarity: "Uncommon"
 ```

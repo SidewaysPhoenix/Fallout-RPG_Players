@@ -8,12 +8,10 @@ effects:
    desc: "-1"
  - name: "Weapon Damage Effects"
    desc: "Gain [[Spread]]"
-weight: ""
+weight: "+0"
 cost: "+15"
 perks: "Gun Nut 2"
-crafting: ""
-materials:
-complexity: ""
+complexity: "4"
 skill: "Repair"
-rarity: ""
+rarity: "Uncommon"
 ```

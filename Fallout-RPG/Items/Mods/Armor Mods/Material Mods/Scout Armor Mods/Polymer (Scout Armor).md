@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Polymer"
+name prefix: "Polymer"
 armor category: "Scout Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,7 +11,7 @@ dmg resistances:
    desc: "+3"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+1"
 cost: "+30"

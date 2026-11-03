@@ -8,8 +8,8 @@ effects:
    desc: "+1d6"
 weight: "+1"
 cost: "+94"
-perks: ""
-complexity: "[[Crafting Complexity|4]]"
+perks: "-"
+complexity: "4"
 skill: "Science"
 rarity: "Common"
 ```

@@ -1,20 +1,20 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "EMP Shielding"
+name prefix: "EMP Shielded"
 armor category: "Power Armor"
 mod type: "Plating Mods"
 dmg resistances:
  - name: Physical
    desc: "-"
  - name: Energy
-   desc: "-"
+   desc: "+2"
  - name: Radiation
    desc: "-"
-effects: "+2 Energy damage resistance"
 locations: "Any"
 weight: "+1"
 cost: "+20"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "Armorer 1"
 rarity: "Uncommon"

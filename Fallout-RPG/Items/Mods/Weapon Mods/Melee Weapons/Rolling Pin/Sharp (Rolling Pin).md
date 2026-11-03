@@ -8,10 +8,10 @@ effects:
    desc: "+1d6"
  - name: "Weapon Damage Effects"
    desc: "Gain [[Persistent]]"
-weight: ""
+weight: "+0"
 cost: "+3"
-perks: ""
-complexity: "[[Crafting Complexity|1]]"
+perks: "-"
+complexity: "1"
 skill: "Repair"
 rarity: "Common"
 ```

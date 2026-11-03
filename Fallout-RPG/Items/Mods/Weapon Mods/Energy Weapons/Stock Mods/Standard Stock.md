@@ -8,8 +8,8 @@ effects:
    desc: "Gain [[Two-Handed]], Remove [[Inaccurate]], Remove [[Close Quarters]]"
 weight: "+1"
 cost: "+10"
-perks: ""
-complexity: "[[Crafting Complexity|2]]"
+perks: "-"
+complexity: "2"
 skill: "Repair"
 rarity: "Common"
 ```

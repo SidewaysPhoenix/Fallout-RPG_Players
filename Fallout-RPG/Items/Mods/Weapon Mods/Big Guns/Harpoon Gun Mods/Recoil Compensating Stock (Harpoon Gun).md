@@ -8,10 +8,8 @@ effects:
    desc: "+1"
 weight: "+15"
 cost: "+45"
-perks: ""
-crafting: ""
-materials:
-complexity: ""
+perks: "-"
+complexity: "2"
 skill: "Repair"
-rarity: ""
+rarity: "Common"
 ```

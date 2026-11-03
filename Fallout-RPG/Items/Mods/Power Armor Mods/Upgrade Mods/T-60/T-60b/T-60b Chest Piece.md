@@ -1,20 +1,21 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "T-60b Chest Piece"
+name prefix: ""
 armor category: "Power Armor"
 mod type: "Upgrade Mod"
 dmg resistances:
  - name: Physical
-   desc: "+1"
+   desc: "-"
  - name: Energy
    desc: "-"
  - name: Radiation
    desc: "-"
-effects: ""
+gameEffects: ""
 locations: "Torso"
 weight: "+1"
 cost: "+37"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 skill: "Repair"
 perks: "-"
 rarity: "Common"

@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Stealth Field"
+name prefix: "Stealth Field"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Allies within Close range may re-roll 1d20 on **Stealth** tests"
+gameEffects: "Allies within Close range may re-roll 1d20 on *Stealth* tests"
 locations: "-"
 weight: "-20"
 cost: "50"
-complexity: "[[Crafting Complexity|5]]"
+complexity: "5"
 skill: "Science"
 perks: "Robotics Expert 1"
 rarity: "3"

@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Resistance Field"
+name prefix: "Resistance Field"
 armor category: "Robot"
 mod type: "Module"
 dmg resistances:
@@ -10,11 +11,11 @@ dmg resistances:
    desc: ""
  - name: 
    desc: ""
-effects: "Allies within Close range receive +2 Physical damage resistance"
+gameEffects: "Allies within Close range receive +2 Physical damage resistance"
 locations: "-"
 weight: "-20"
 cost: "75"
-complexity: "[[Crafting Complexity|4]]"
+complexity: "4"
 skill: "Science"
 perks: "Robotics Expert 1, Science! 1"
 rarity: "4"

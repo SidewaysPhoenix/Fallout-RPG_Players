@@ -1,20 +1,14 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Cushioned"
+name prefix: "Cushioned"
 armor category: "Armor"
 mod type: "Upgrade Mod"
-dmg resistances:
- - name: Physical
-   desc: "-"
- - name: Energy
-   desc: "-"
- - name: Radiation
-   desc: "-"
-effects: "+2 to Physical damage resistance vs falling damage"
+gameEffects: "+2 to *Physical* damage resistance vs falling damage"
 locations: "Legs"
-weight: "+1"
-cost: "-"
-complexity: "[[Crafting Complexity|3]]"
+weight: "-"
+cost: "+1"
+complexity: "3"
 skill: "Repair"
 perks: "Armorer 1"
 rarity: "Uncommon"

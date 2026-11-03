@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Welded"
+name prefix: "Welded"
 armor category: "Marine Armor"
 mod type: "Material Mod"
 dmg resistances:
@@ -10,13 +11,13 @@ dmg resistances:
    desc: "+1"
  - name: Radiation
    desc: "+1"
-effects: ""
+gameEffects: ""
 locations: ""
 weight: "+1"
 cost: "+10"
 complexity: "2"
 skill: "Repair"
-perks: ""
+perks: "-"
 rarity: "Common"
 hp: ""
 ```

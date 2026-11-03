@@ -7,9 +7,9 @@ effects:
  - name: "Weapon Damage Effects"
    desc: "Gain [[Piercing]] (1)"
 weight: "+2"
-cost: "45"
+cost: "+45"
 perks: "Blacksmith 3"
 skill: "Repair"
-complexity: "[[Crafting Complexity|3]]"
+complexity: "3"
 rarity: "Uncommon"
 ```

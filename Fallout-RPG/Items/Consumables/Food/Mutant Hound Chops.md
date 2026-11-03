@@ -7,7 +7,7 @@ hp healed: "8"
 irradiated: "-"
 weight: "<1"
 cost: "12" 
-item rarity: "3"
+rarity: "3"
 crafting: "Crafting"
 materials: 
  - name: [[Mutant Hound Meat]]
@@ -18,8 +18,8 @@ materials:
    desc: ""
  - name: 
    desc: ""
-complexity: "[[Crafting Complexity|1]]"
-perks: ""
+complexity: "1"
+perks: "-"
 skill: "Survival"
 recipe rarity: "Common"
 ```

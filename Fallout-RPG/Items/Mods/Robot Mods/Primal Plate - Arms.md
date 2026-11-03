@@ -1,6 +1,7 @@
 ```statblock
 layout: Fallout_2D20_Apparel_Mods
 mod name: "Primal Plate - Arms"
+name prefix: "Primal"
 armor category: "Robot Armor"
 dmg resistances: 
  - name: "Physical" 
@@ -10,7 +11,7 @@ dmg resistances:
 locations: "Arms"
 carry weight: "-10"
 cost: "10"
-complexity: "[[Crafting Complexity|2]]"
+complexity: "2"
 skill: "Repair"
 perks: "-"
 rarity: "Common"

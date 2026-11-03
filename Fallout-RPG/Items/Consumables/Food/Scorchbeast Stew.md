@@ -4,10 +4,10 @@ consumables name: "Scorchbeast Stew"
 desc: "If steak's not to your liking or you simply want something with a few more vegetables, then scorchbeast stew is packed with flavor, fiber, and that special something that can only be gained from giant irradiated beasts. "
 effects: "+3 to Radiation damage resistance until the end of the next scene"
 hp healed: "12"
-irradiated: ""
+irradiated: "-"
 weight: "1"
 cost: "130" 
-item rarity: "4"
+rarity: "4"
 crafting: "Crafting"
 materials: 
  - name: [[Carrot]]
@@ -19,7 +19,7 @@ materials:
  - name: [[Tato]]
    desc: "x1"
 complexity: "4"
-perks: ""
+perks: "-"
 skill: "Survival"
 recipe rarity: "Rare"
 ```

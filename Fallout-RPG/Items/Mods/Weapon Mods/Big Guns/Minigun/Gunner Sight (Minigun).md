@@ -8,8 +8,8 @@ effects:
    desc: "Remove [[Inaccurate]]"
 weight: "+1"
 cost: "+68"
-perks: ""
-complexity: "[[Crafting Complexity|2]]"
+perks: "-"
+complexity: "2"
 skill: "Repair"
 rarity: "Common"
 ```

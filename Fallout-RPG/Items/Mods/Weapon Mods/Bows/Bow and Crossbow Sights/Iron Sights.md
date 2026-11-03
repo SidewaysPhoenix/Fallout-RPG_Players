@@ -7,9 +7,9 @@ effects:
  - name: "Range"
    desc: "+1"
 weight: "+1"
-cost: "10"
+cost: "+10"
 perks: "Gun Nut 1"
 skill: "Repair"
-complexity: "[[Crafting Complexity|2]]"
+complexity: "2"
 rarity: "Uncommon"
 ```

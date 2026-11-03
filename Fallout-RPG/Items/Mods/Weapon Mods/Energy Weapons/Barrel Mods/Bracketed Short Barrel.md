@@ -3,13 +3,11 @@ layout: Fallout_2d20_weapon_mods
 category: "Barrel Mods (Energy Weapons)"
 mod: "Bracketed Short Barrel"
 name prefix: "-"
-effects:
- - name: "Effects"
-   desc: "Allows the weapon to take a muzzle mod"
-weight: ""
+gameEffects: "Allows the weapon to take a muzzle mod."
+weight: "+0"
 cost: "+6"
-perks: ""
-complexity: "[[Crafting Complexity|3]]"
+perks: "-"
+complexity: "3"
 skill: "Science"
 rarity: "Common"
 ```

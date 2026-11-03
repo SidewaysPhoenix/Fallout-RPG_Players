@@ -7,7 +7,7 @@ duration: "Lasting"
 addictive: "No"
 weight: "<1"
 cost: "N/A" 
-item rarity: "N/A"
+rarity: "N/A"
 crafting: "Crafting"
 materials: 
  - name: [[Stimpak]] 
@@ -16,8 +16,8 @@ materials:
    desc: "x1"
  - name: [[Antibiotics]]
    desc: "x1"
-complexity: "[[Crafting Complexity|3]]"
-perks: "[[Survival Shortcut]] 1"
+complexity: "3"
+perks: "Survival Shortcut 1"
 skill: "Science"
 recipe rarity: "Rare"
 ```

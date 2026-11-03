@@ -7,10 +7,10 @@ duration: "Instant"
 addictive: "No"
 weight: "<1"
 cost: "75" 
-item rarity: "3"
+rarity: "3"
 crafting: "Crafting"
 materials: 
- - name: Rare Materials
+ - name: [[Rare Material]]
    desc: "x2"
  - name: [[Glowing Fungus]]
    desc: "x3"
@@ -18,17 +18,8 @@ materials:
    desc: "x2"
  - name: [[Stimpak]]
    desc: "x3"
-complexity: "[[Crafting Complexity|4]]"
+complexity: "4"
 perks: "Chemist"
 skill: "Science"
 recipe rarity: "Uncommon"
 ```
-	Chem Duration
-The Chemist perk (p.62 Core Rulebook) and the [[BioCommMesh]] armor 
-upgrade (p.136 Core Rulebook) both increase the duration of chems taken.
-
-This does not affect chems with an Instant duration.
-
-Chems with a duration of Brief lasts one round. If the character has the armor upgrade or used a chem made by a Chemist character, then this is doubled to up to two rounds (so, until the end of your next turn, or until the recipient has taken two full turns under the effects of the chem).
-
-Chems with a duration of Lasting lasts until the end of the next scene instead of the end of the current scene.
