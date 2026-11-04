@@ -416,6 +416,27 @@ Passenger Spaces Used for Cargo: 3
     );
   }
 
+// Match ordinary stacks by source and owned metadata, never by generated instance IDs alone.
+function vkTransferStackKey(item, isCoreItem) {
+  if(!item || isCoreItem(item) || String(item.instanceName || '').trim() || String(item.generatedName || '').trim() ||
+     item.addons?.length || item.powerArmorState || item.baseCostOverride!==undefined || item.unique || item.isUnique ||
+     Object.values(item.breaking || {}).some(n=>Number(n)>0) ||
+     (item.weaponCondition && (item.weaponCondition.status!=='normal' || item.weaponCondition.faults?.length)))return null;
+  const path=String(item.sourcePath || '').trim().replace(/\\/g,'/');
+  if(!path)return null;
+  const canonical=value=>Array.isArray(value)?value.map(canonical):value && typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])):value;
+  const ignored=new Set(['name','link','yamlName','sourcePath','qty','selected','category','cost','weight','instanceId','instanceName','generatedName','addons','breaking','weaponCondition']);
+  const extra=Object.fromEntries(Object.keys(item).filter(k=>!ignored.has(k)).map(k=>[k,item[k]]));
+  const raw=String(item.name || item.link || item.yamlName || '');
+  const display=raw.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g,(_,target,alias)=>alias || target.split('/').pop()).trim();
+  return JSON.stringify(canonical([path,display,String(item.category || '').toUpperCase(),String(item.cost ?? '').trim(),String(item.weight ?? '').trim(),extra]));
+}
+function vkTransferStackMatch(rows,item,isCoreItem,identity) {
+  const key=vkTransferStackKey(item,isCoreItem);
+  return rows.find(row=>key!==null?vkTransferStackKey(row,isCoreItem)===key:
+    !!String(item.instanceId || '').trim() && identity(row)===identity(item));
+}
+
   function cargoItemIdentity(item) {
     const instanceId = String(item?.instanceId || "").trim();
     if (instanceId) return `instance::${instanceId}`;
@@ -495,7 +516,7 @@ Passenger Spaces Used for Cargo: 3
   function parseItemWeight(value) {
     const text = String(value ?? "").trim();
     if (!text) return 0;
-    if (text === "<1") return 0.1;
+    if (text === "<1") return 0;
     const m = text.match(/-?\d+(?:\.\d+)?/);
     const n = m ? Number(m[0]) : 0;
     return Number.isFinite(n) ? n : 0;
@@ -536,7 +557,7 @@ Passenger Spaces Used for Cargo: 3
 
   function mergeIntoCharacterGear(rows, sourceItem, qtyOrUnits) {
     const id = cargoItemIdentity(sourceItem);
-    let existing = rows.find(item => cargoItemIdentity(item) === id);
+    let existing = vkTransferStackMatch(rows,sourceItem,isCore,cargoItemIdentity);
     const charged = isCore(sourceItem);
     if (!existing) {
       existing = JSON.parse(JSON.stringify(sourceItem));
@@ -558,7 +579,14 @@ Passenger Spaces Used for Cargo: 3
     }
   }
 
+  function vehicleCharacterSnapshot() {
+    return JSON.stringify([localStorage.getItem("fallout_character_save_session"),localStorage.getItem(CHARACTER_SHEET_KEY),localStorage.getItem(CHARACTER_GEAR_KEY)]);
+  }
   function showCargoTransferDialog(item, onTransfer) {
+    const characterRoot=document.getElementById("fallout-sheet-root"),characterBefore=vehicleCharacterSnapshot();
+    const assertCurrent=()=>{
+      if(characterRoot!==document.getElementById("fallout-sheet-root") || characterBefore!==vehicleCharacterSnapshot() || characterRoot?.getAttribute("aria-busy")==="true")throw Error("The character or inventory changed. Close and reopen this transfer.");
+    };
     const overlay = document.createElement("div");
     overlay.className = "vkv-modal-overlay";
     const modal = document.createElement("div");
@@ -612,17 +640,28 @@ Passenger Spaces Used for Cargo: 3
     modal.appendChild(error);
     const buttons = document.createElement("div");
     buttons.style = "display:flex;gap:12px;justify-content:center;";
+    let transferring=false;
     const transfer = makeBtn("Transfer", async () => {
-      if (isCore(item)) {
-        if (!selectedIndexes.size) { error.textContent = "Select at least one core."; return; }
-        await onTransfer({ coreIndexes: [...selectedIndexes].sort((a,b) => a-b) });
-      } else {
-        const qty = Math.floor(Number(qtyInput.value));
-        const max = cargoQty(item);
-        if (!Number.isFinite(qty) || qty < 1 || qty > max) { error.textContent = `Enter a quantity from 1 to ${max}.`; return; }
-        await onTransfer({ qty });
-      }
-      document.body.removeChild(overlay);
+      if(transferring)return;
+      let finish;
+      try{
+        assertCurrent();
+        let selection;
+        if(isCore(item)){
+          if(!selectedIndexes.size)throw Error("Select at least one core.");
+          selection={coreIndexes:[...selectedIndexes].sort((a,b)=>a-b)};
+        }else{
+          const qty=Number(qtyInput.value),max=cargoQty(item);
+          if(!Number.isSafeInteger(qty)||qty<1||qty>max)throw Error(`Enter a quantity from 1 to ${max}.`);
+          selection={qty};
+        }
+        transferring=true;transfer.disabled=cancel.disabled=true;
+        const work=characterRoot?._vkCharacterWork;
+        if(work){const pending=new Promise(resolve=>{finish=()=>{work.delete(pending);resolve();};});work.add(pending);}
+        await onTransfer({...selection,assertCurrent});
+        overlay.remove();
+      }catch(problem){error.textContent=problem.message || "Transfer failed. Nothing was moved.";}
+      finally{finish?.();transferring=false;transfer.disabled=cancel.disabled=false;}
     }, { bg: "#ffc200" });
     transfer.style.color = "#214a72";
     transfer.style.fontWeight = "bold";
@@ -817,25 +856,32 @@ Passenger Spaces Used for Cargo: 3
       move.title = `Transfer to ${getCurrentCharacterName()}`;
       move.style = "cursor:pointer;color:#ffc200;font-size:1.25em;font-weight:bold;margin-right:10px;text-shadow:2px 2px 5px black;";
       move.onclick = () => showCargoTransferDialog(item, async selection => {
-        const rows = readCharacterGear();
-        if (isCore(item)) {
-          const indexes = selection.coreIndexes || [];
-          const units = Array.isArray(item.chargeUnits) ? item.chargeUnits : [];
-          const moved = indexes.map(i => units[i]).filter(Boolean);
-          mergeIntoCharacterGear(rows, item, moved);
-          const removeSet = new Set(indexes);
-          item.chargeUnits = units.filter((_, i) => !removeSet.has(i));
-          item.qty = String(item.chargeUnits.length);
-          if (!item.chargeUnits.length) cargo.splice(index, 1);
-        } else {
-          const qty = Number(selection.qty || 0);
-          mergeIntoCharacterGear(rows, item, qty);
-          const remaining = cargoQty(item) - qty;
-          if (remaining <= 0) cargo.splice(index, 1);
-          else item.qty = String(remaining);
+        selection.assertCurrent();
+        const originalCargo=JSON.stringify(cargo),gearBefore=localStorage.getItem(CHARACTER_GEAR_KEY);
+        if(JSON.stringify(readCargo())!==originalCargo)throw Error("Vehicle cargo changed. Close and reopen this transfer.");
+        const nextCargo=JSON.parse(originalCargo),target=nextCargo[index],rows=readCharacterGear();
+        if(isCore(target)){
+          const indexes=selection.coreIndexes || [],units=target.chargeUnits || [];
+          if(indexes.some(i=>!Number.isSafeInteger(i)||!units[i]))throw Error("Core selection changed. Reopen this transfer.");
+          mergeIntoCharacterGear(rows,target,indexes.map(i=>units[i]));
+          const removed=new Set(indexes);target.chargeUnits=units.filter((_,i)=>!removed.has(i));target.qty=String(target.chargeUnits.length);
+          if(!target.chargeUnits.length)nextCargo.splice(index,1);
+        }else{
+          const qty=selection.qty;if(!Number.isSafeInteger(qty)||qty<1||qty>cargoQty(target))throw Error("Quantity changed. Reopen this transfer.");
+          mergeIntoCharacterGear(rows,target,qty);target.qty=String(cargoQty(target)-qty);if(Number(target.qty)===0)nextCargo.splice(index,1);
         }
-        writeCharacterGear(rows);
-        await writeCargo(cargo);
+        const nextGear=JSON.stringify(rows);let inventoryWritten=false;
+        try{
+          await writeFM(fm=>{
+            selection.assertCurrent();
+            if(JSON.stringify(fm[KEY_CARGO] || [])!==originalCargo)throw Error("Vehicle cargo changed. Close and reopen this transfer.");
+            localStorage.setItem(CHARACTER_GEAR_KEY,nextGear);inventoryWritten=true;fm[KEY_CARGO]=nextCargo;
+          });
+        }catch(problem){
+          if(inventoryWritten && localStorage.getItem(CHARACTER_GEAR_KEY)===nextGear){if(gearBefore===null)localStorage.removeItem(CHARACTER_GEAR_KEY);else localStorage.setItem(CHARACTER_GEAR_KEY,gearBefore);}
+          throw problem;
+        }
+        window.dispatchEvent(new Event("fallout:gear-updated"));
         showVehicleNotice(`Transferred ${cargoDisplayName(item) || "Item"} to ${getCurrentCharacterName()}.`);
       });
       const del = document.createElement("span");

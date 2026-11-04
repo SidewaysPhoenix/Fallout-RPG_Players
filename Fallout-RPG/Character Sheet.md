@@ -11366,6 +11366,27 @@ const vkFinishCharacterTask72=vkBeginCharacterWork();try {return await (async ()
 
 // ---- VEHICLE TRANSFER HELPERS ----
 
+// Match ordinary stacks by source and owned metadata, never by generated instance IDs alone.
+function vkTransferStackKey(item, isCoreItem) {
+  if(!item || isCoreItem(item) || String(item.instanceName || '').trim() || String(item.generatedName || '').trim() ||
+     item.addons?.length || item.powerArmorState || item.baseCostOverride!==undefined || item.unique || item.isUnique ||
+     Object.values(item.breaking || {}).some(n=>Number(n)>0) ||
+     (item.weaponCondition && (item.weaponCondition.status!=='normal' || item.weaponCondition.faults?.length)))return null;
+  const path=String(item.sourcePath || '').trim().replace(/\\/g,'/');
+  if(!path)return null;
+  const canonical=value=>Array.isArray(value)?value.map(canonical):value && typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])):value;
+  const ignored=new Set(['name','link','yamlName','sourcePath','qty','selected','category','cost','weight','instanceId','instanceName','generatedName','addons','breaking','weaponCondition']);
+  const extra=Object.fromEntries(Object.keys(item).filter(k=>!ignored.has(k)).map(k=>[k,item[k]]));
+  const raw=String(item.name || item.link || item.yamlName || '');
+  const display=raw.replace(/\[\[([^|\]]+)(?:\|([^\]]+))?\]\]/g,(_,target,alias)=>alias || target.split('/').pop()).trim();
+  return JSON.stringify(canonical([path,display,String(item.category || '').toUpperCase(),String(item.cost ?? '').trim(),String(item.weight ?? '').trim(),extra]));
+}
+function vkTransferStackMatch(rows,item,isCoreItem,identity) {
+  const key=vkTransferStackKey(item,isCoreItem);
+  return rows.find(row=>key!==null?vkTransferStackKey(row,isCoreItem)===key:
+    !!String(item.instanceId || '').trim() && identity(row)===identity(item));
+}
+
 function getItemIdentity(item) {
   const instanceId = String(item?.instanceId || "").trim();
   if (instanceId) return `instance::${instanceId}`;
@@ -11398,7 +11419,7 @@ const vkFinishCharacterTask74=vkBeginCharacterWork();try {return await (async ()
 
 function mergeItemIntoCargo(cargo, sourceItem, qtyOrUnits) {
   const id = getItemIdentity(sourceItem);
-  let existing = cargo.find(item => getItemIdentity(item) === id);
+  let existing = vkTransferStackMatch(cargo,sourceItem,isChargeTrackedCore,getItemIdentity);
   const core = isChargeTrackedCore(sourceItem);
 
   if (!existing) {
@@ -11423,6 +11444,8 @@ function mergeItemIntoCargo(cargo, sourceItem, qtyOrUnits) {
 }
 
 function showVehicleTransferDialog({ rowData, onTransfer }) {
+  const transferBefore=vkWorkingCharacterToken();
+  const assertCurrent=()=>{vkAssertWorkingCharacter(transferBefore);if(vkCharacterActionBusy)throw Error("A character action is in progress. Reopen this transfer.");};
   const vehicles = findVehicleSheets();
   if (!vehicles.length) {
     showSheetNotice("No vehicle sheets found. Add Sheet_Type: Vehicle to a vehicle note.", 3000);
@@ -11459,7 +11482,6 @@ function showVehicleTransferDialog({ rowData, onTransfer }) {
   let qtyInput = null;
   const selectedCoreIndexes = new Set();
   if (isChargeTrackedCore(rowData)) {
-    syncChargeTrackedCoreQty(rowData);
     const help = document.createElement("div");
     help.textContent = "Select the cores to transfer:";
     help.style = "color:#efdd6f;margin-bottom:8px;";
@@ -11513,19 +11535,26 @@ function showVehicleTransferDialog({ rowData, onTransfer }) {
   transfer.onclick = async () => {
 const vkFinishCharacterTask75=vkBeginCharacterWork();try {return await (async () => {
 
-    const vehicle = vehicles.find(v => v.path === select.value);
-    if (!vehicle) return;
-    if (isChargeTrackedCore(rowData)) {
-      if (!selectedCoreIndexes.size) { error.textContent = "Select at least one core."; return; }
-      await onTransfer(vehicle, { coreIndexes: [...selectedCoreIndexes].sort((a,b) => a-b) });
-    } else {
-      const qty = Math.floor(Number(qtyInput.value));
-      const max = Math.max(1, parseInt(rowData.qty ?? 1, 10) || 1);
-      if (!Number.isFinite(qty) || qty < 1 || qty > max) { error.textContent = `Enter a quantity from 1 to ${max}.`; return; }
-      await onTransfer(vehicle, { qty });
-    }
-    document.body.removeChild(overlay);
-  
+    if(transfer.disabled)return;
+    try{
+      assertCurrent();
+      const vehicle=vehicles.find(v=>v.path===select.value);
+      if(!vehicle || app.vault.getAbstractFileByPath(vehicle.path)!==vehicle)throw Error("The vehicle is no longer available.");
+      let selection;
+      if(isChargeTrackedCore(rowData)){
+        if(!selectedCoreIndexes.size)throw Error("Select at least one core.");
+        selection={coreIndexes:[...selectedCoreIndexes].sort((a,b)=>a-b)};
+      }else{
+        const qty=Number(qtyInput.value),max=Number(rowData.qty ?? 1);
+        if(!Number.isSafeInteger(qty)||qty<1||qty>max)throw Error(`Enter a quantity from 1 to ${max}.`);
+        selection={qty};
+      }
+      transfer.disabled=cancel.disabled=true;
+      await onTransfer(vehicle,{...selection,assertCurrent});
+      overlay.remove();
+    }catch(problem){error.textContent=problem.message || "Transfer failed. Nothing was moved.";}
+    finally{transfer.disabled=cancel.disabled=false;}
+
 })();} finally {vkFinishCharacterTask75();}
 };
   cancel.onclick = () => document.body.removeChild(overlay);
@@ -11880,24 +11909,35 @@ const vkFinishCharacterTask76=vkBeginCharacterWork();try {return await (async ()
             onTransfer: async (vehicleFile, selection) => {
 const vkFinishCharacterTask77=vkBeginCharacterWork();try {return await (async () => {
 
-              const cargo = getVehicleCargo(vehicleFile);
-              if (isChargeTrackedCore(rowData)) {
-                const indexes = selection.coreIndexes || [];
-                const movedUnits = indexes.map(i => rowData.chargeUnits[i]).filter(Boolean);
-                mergeItemIntoCargo(cargo, rowData, movedUnits);
-                const removeSet = new Set(indexes);
-                rowData.chargeUnits = rowData.chargeUnits.filter((_, i) => !removeSet.has(i));
-                syncChargeTrackedCoreQty(rowData);
-                if (!rowData.chargeUnits.length) data.splice(rowIdx, 1);
-              } else {
-                const qty = Number(selection.qty || 0);
-                mergeItemIntoCargo(cargo, rowData, qty);
-                const remaining = (parseInt(rowData.qty ?? 0, 10) || 0) - qty;
-                if (remaining <= 0) data.splice(rowIdx, 1);
-                else rowData.qty = String(remaining);
+              selection.assertCurrent();
+              const gearBefore=localStorage.getItem(GEAR_STORAGE_KEY),rows=JSON.parse(gearBefore || "[]");
+              const candidates=rows.map((item,index)=>({item,index})).filter(entry=>getItemIdentity(entry.item)===getItemIdentity(rowData));
+              const exact=candidates.filter(entry=>JSON.stringify(entry.item)===JSON.stringify(rowData));
+              const index=exact.length===1?exact[0].index:candidates.length===1?candidates[0].index:-1;
+              if(index<0)throw Error("Inventory changed. Reopen this transfer.");
+              const source=rows[index],cargo=getVehicleCargo(vehicleFile),cargoBefore=JSON.stringify(cargo);
+              if(isChargeTrackedCore(source)){
+                const indexes=selection.coreIndexes || [],units=source.chargeUnits || [];
+                if(indexes.some(i=>!Number.isSafeInteger(i)||!units[i]))throw Error("Core selection changed. Reopen this transfer.");
+                mergeItemIntoCargo(cargo,source,indexes.map(i=>units[i]));
+                const removed=new Set(indexes);source.chargeUnits=units.filter((_,i)=>!removed.has(i));syncChargeTrackedCoreQty(source);
+                if(!source.chargeUnits.length)rows.splice(index,1);
+              }else{
+                const qty=selection.qty;if(!Number.isSafeInteger(qty)||qty<1||qty>Number(source.qty))throw Error("Quantity changed. Reopen this transfer.");
+                mergeItemIntoCargo(cargo,source,qty);source.qty=String(Number(source.qty)-qty);if(Number(source.qty)===0)rows.splice(index,1);
               }
-              await setVehicleCargo(vehicleFile, cargo);
-              saveAndRender();
+              const nextGear=JSON.stringify(rows);let inventoryWritten=false;
+              try{
+                await app.fileManager.processFrontMatter(vehicleFile,fm=>{
+                  selection.assertCurrent();
+                  if(JSON.stringify(fm.Vehicle_Cargo || [])!==cargoBefore)throw Error("Vehicle cargo changed. Reopen this transfer.");
+                  localStorage.setItem(GEAR_STORAGE_KEY,nextGear);inventoryWritten=true;fm.Vehicle_Cargo=cargo;
+                });
+              }catch(problem){
+                if(inventoryWritten && localStorage.getItem(GEAR_STORAGE_KEY)===nextGear){if(gearBefore===null)localStorage.removeItem(GEAR_STORAGE_KEY);else localStorage.setItem(GEAR_STORAGE_KEY,gearBefore);}
+                throw problem;
+              }
+              window.dispatchEvent(new CustomEvent("fallout:gear-updated"));updateCarryWeightDisplay();vkUpdateCharacterSaveStatus();
               showSheetNotice(`Transferred to ${vehicleFile.basename}.`);
             
 })();} finally {vkFinishCharacterTask77();}
