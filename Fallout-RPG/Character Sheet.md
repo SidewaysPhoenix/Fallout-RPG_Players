@@ -13786,6 +13786,14 @@ const vkFinishCharacterTask83=vkBeginCharacterWork();try {return await (async ()
 const INJURY_STORAGE_KEY = "fallout_injury_data";
 const INJURY_LOCATIONS = ["Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"];
 const INJURY_STATES = ["None", "Injured", "Treated"];
+const VK_INJURY_LOCATION_RULES = Object.freeze({
+  Arm: "You drop any object held in that hand, and the arm is broken or otherwise unable to move. You cannot perform any actions using that arm—by itself or alongside your other arm.",
+  Leg: "You immediately fall prone as your leg gives out under your weight. You can no longer take the Sprint action, and the Move action is now a major action for you.",
+  Torso: "You begin bleeding heavily. At the end of each of your subsequent turns, you suffer 2 D6 physical damage, ignoring all your Damage Resistances.",
+  Head: "You are momentarily dazed and lose your normal actions in your next turn (though you may spend AP for extra actions as normal). Further, you cannot see clearly, and increase the difficulty of all tests which rely on vision by +2."
+});
+
+
 
 function defaultInjuryData() {
   const locations = {};
@@ -13894,6 +13902,13 @@ function renderInjurySection() {
     const anyInjury = states.some(x => x === "Treated" || x === "Injured");
     const untreatedCount = states.filter(x => x === "Injured").length;
 
+    // Only untreated injuries have their location effects shown as active.
+    for(const type of ["Head","Arm","Torso","Leg"]){
+      const locations=INJURY_LOCATIONS.filter(location=>data.locations[location]==="Injured" && (location===type || location.endsWith(" "+type)));
+      if(!locations.length)continue;
+      const info=makeInjuryInfoBox(`${locations.join(" & ")} · Injured`,VK_INJURY_LOCATION_RULES[type]);
+      info.classList.add("vk-injury-location-effects");guidanceWrap.append(info);
+    }
     const debilitating=INJURY_LOCATIONS.filter(location=>data.locations[location]!=="None" && data.debilitating[location]);
     if(debilitating.length)guidanceWrap.appendChild(makeInjuryInfoBox("Debilitating injuries",`Tests to treat an injury at ${debilitating.join(", ")} have +1 difficulty. Apply this to the injury being treated; it is not a penalty to all skill tests.`));
     if (anyTreated) {
@@ -13958,7 +13973,10 @@ function renderInjurySection() {
       });
       table.appendChild(tbody);
       recovery.appendChild(table);
-      guidanceWrap.appendChild(recovery);
+      const disclosure=document.createElement("details");disclosure.className="vk-injury-recovery";disclosure.style.cssText=recovery.style.cssText;
+      const summary=document.createElement("summary");summary.textContent="Injury Recovery";summary.style.color="#efdd6f";summary.style.fontWeight="bold";summary.style.cursor="pointer";vkDisclosureIcon(summary);
+      recovery.firstElementChild.remove();
+      disclosure.append(summary,...recovery.childNodes);guidanceWrap.append(disclosure);
     }
   }
 
