@@ -14904,6 +14904,151 @@
       "name": "Fallout_2d20_NPC_Statblock_Parsed",
       "id": "9a687bdbc879",
       "diceParsing": []
+    },
+    {
+      "blocks": [
+        {
+          "type": "group",
+          "id": "09f9fbd97ac9",
+          "properties": [],
+          "nested": [
+            {
+              "type": "heading",
+              "id": "c9b82819983a",
+              "properties": [
+                "name"
+              ],
+              "size": 1,
+              "fallback": "-"
+            }
+          ]
+        },
+        {
+          "type": "inline",
+          "id": "cb5b78e94b5b",
+          "properties": [],
+          "nested": [
+            {
+              "type": "group",
+              "id": "baf99918fa39",
+              "properties": [],
+              "nested": [
+                {
+                  "type": "text",
+                  "id": "8a987a191aea",
+                  "properties": [
+                    "levelReq"
+                  ],
+                  "text": null,
+                  "fallback": "None",
+                  "heading": "Required Level",
+                  "hasRule": false
+                },
+                {
+                  "type": "text",
+                  "id": "3a4ac8d98bd8",
+                  "properties": [
+                    "lvlIncreasePerRank"
+                  ],
+                  "text": null,
+                  "fallback": "-",
+                  "heading": "Level Per Rank",
+                  "diceCallback": "const value = monster.lvlIncreasePerRank;\nif(value == null || String(value).trim() === \"\") return \"\";\n\nconst number = Number(value);\nreturn Number.isInteger(number) ? `+${number}`:String(value);",
+                  "conditioned": false
+                }
+              ],
+              "hasRule": false
+            },
+            {
+              "type": "group",
+              "id": "993b8a89eb79",
+              "properties": [],
+              "nested": [
+                {
+                  "type": "text",
+                  "id": "189a7b2ae9b8",
+                  "properties": [
+                    "maxRank"
+                  ],
+                  "text": null,
+                  "fallback": "-",
+                  "heading": "Ranks"
+                },
+                {
+                  "type": "text",
+                  "id": "ca882999b9da",
+                  "properties": [
+                    "otherReq"
+                  ],
+                  "text": null,
+                  "fallback": "-",
+                  "conditioned": false,
+                  "heading": "Other Requirements",
+                  "diceCallback": "if ((monster.otherReqModifier ?? \"\").trim() != \"\") {\n\tconst other = String(monster.otherReq ?? \"\").trim();\n\tif (!other) return \"\";\n\n\tconst modifier = String(monster.otherReqModifier).toLowerCase();\n                                                                      \n\treturn `${modifier === \"false\" ? \"Not a\" : \"Is a\"} ${other}`;\n\t} else {\n\t\treturn;\n\t}",
+                  "dice": false
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "inline",
+          "id": "28c9889ae8ab",
+          "properties": [],
+          "nested": [
+            {
+              "type": "image",
+              "id": "3bba58095b28",
+              "properties": [
+                "image"
+              ],
+              "fallback": "-",
+              "conditioned": true
+            }
+          ],
+          "conditioned": true
+        },
+        {
+          "type": "inline",
+          "id": "0bba1a3a1929",
+          "properties": [],
+          "nested": [
+            {
+              "type": "traits",
+              "id": "28687969aa98",
+              "properties": [
+                "specialReq"
+              ],
+              "fallback": "-",
+              "heading": "Required S.P.E.C.I.A.L."
+            }
+          ],
+          "conditioned": true,
+          "cls": "special"
+        },
+        {
+          "type": "inline",
+          "id": "6b1b9938f918",
+          "properties": [],
+          "nested": [
+            {
+              "type": "traits",
+              "id": "3a1a4b28b9bb",
+              "properties": [
+                "effectPerRank"
+              ],
+              "fallback": "-",
+              "heading": "",
+              "callback": ""
+            }
+          ],
+          "hasRule": false,
+          "conditioned": true,
+          "cls": "ranksSection"
+        }
+      ],
+      "name": "Fallout_2d20_Perks",
+      "id": "693bc9c87b58"
     }
   ],
   "default": "6a1a185848bb",
