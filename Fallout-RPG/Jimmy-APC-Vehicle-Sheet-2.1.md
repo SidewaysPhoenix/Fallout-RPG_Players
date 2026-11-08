@@ -2,7 +2,7 @@
 Sheet_Type: Vehicle
 Vehicle_Cargo:
   - name: "[[Common Material]]"
-    qty: "169"
+    qty: "156"
     cost: "1"
     selected: false
     category: MISC
@@ -40,7 +40,7 @@ Vehicle_Cargo:
   - name: "[[Uncommon Material]]"
     yamlName: Uncommon Material
     sourcePath: Fallout-RPG/Items/Tools and Utilities/Generic/Uncommon Material.md
-    qty: "11"
+    qty: "5"
     cost: "3"
     weight: "1"
     selected: false
